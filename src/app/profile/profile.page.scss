@@ -1,0 +1,54 @@
+#profile-avatar{
+    
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 19%;
+    
+}
+
+
+#out-button{
+
+    position: relative;
+    width:200px;
+    margin:auto;
+    margin-top: 2vh;
+}
+
+#input-one{
+    --background:  rgb(255, 87, 87);
+    --padding: 5;
+    --placeholder-color: white;
+}
+#back-button{
+    --background:  #001f3f;
+}
+#save-button{
+
+    --background:  #001f3f;
+}
+#profile-buttons{
+    --background: #6d1004;
+
+}
+
+ion-content{
+
+    --background:  rgb(195, 60, 60);
+}
+
+ion-icon{
+    font-size: 40px;
+    color: white;
+    align-content: center;
+}
+
+
+ion-item{
+    --background: rgb(195, 60, 60);
+}
+
+ion-title{
+    background: rgb(195, 60, 60);
+}

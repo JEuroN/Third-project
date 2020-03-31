@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar id="register-bar">
+    <ion-title style="text-align: center;"><b>Register</b></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-item id="input-one" lines="full">
+      <ion-label position="floating" required>Email</ion-label>
+      <ion-input [(ngModel)]="username" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item id="input-one" lines="full">
+      <ion-label position="floating" required>Password</ion-label>
+      <ion-input [(ngModel)]="password" type="password" required></ion-input>
+    </ion-item>
+
+    <ion-item id="input-one" lines="full">
+      <ion-label position="floating" required>Confirm Password</ion-label>
+      <ion-input [(ngModel)]="cpassword" type="password" required></ion-input>
+    </ion-item>
+
+    <ion-list>
+      <ion-row>
+        <ion-col style="text-align: center;">
+          <h5><b>Select your sex:</b></h5>
+        </ion-col>
+      </ion-row>
+      <ion-item id="input-one" *ngFor="let entry of form">
+        <ion-label>{{entry.val}}</ion-label>
+        <ion-checkbox slot="end" [(ngModel)]="entry.isChecked" (ionChange)='change(entry.id)'></ion-checkbox>
+      </ion-item>
+    </ion-list>
+
+    <ion-item id="input-one" lines="full" required>
+      <ion-label position="floating">Age</ion-label>
+      <ion-input type="number" [(ngModel)]="age" type="age" required></ion-input>
+    </ion-item>
+
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="register()" type="submit"  expand="block">Sign up</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button  href="#" routerLink="/home" expand="block">Return</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <h2 class="ion-text-center">{{error}}</h2>
+
+</ion-content>
+
