@@ -45,6 +45,13 @@ ion-content{
   --background:  rgb(195, 60, 60);
   color: white;
 }
+ion-item{
+  --background: rgb(195, 60, 60);
+  p{
+    margin: 0 auto;
+    font-size: larger;
+  }
+}
 
 
 ion-list{
@@ -60,4 +67,15 @@ h2{
 ion-button{
   color: black;
   --background: rgb(216, 84, 84);
+}
+
+ion-icon{
+  color: black;
+  font-size: 50px;
+  margin: auto;
+}
+
+#title{
+  justify-content: center;
+  text-align: center;
 }

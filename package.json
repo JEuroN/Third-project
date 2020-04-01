@@ -20,12 +20,15 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
+    "@ionic-native/camera": "^5.23.0",
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/crop": "^5.22.0",
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^5.0.0",
     "cordova-android": "8.1.0",
+    "cordova-browser": "^6.0.0",
+    "cordova-plugin-camera": "^4.1.0",
     "core-js": "^2.5.4",
     "firebase": "^7.10.0",
     "g": "^2.0.1",
@@ -64,7 +67,8 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.4.3"
+    "typescript": "~3.4.3",
+    "cordova-plugin-ionic-camera": "^2.0"
   },
   "description": "An Ionic project",
   "cordova": {
@@ -76,10 +80,15 @@
       "cordova-plugin-ionic-webview": {
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-camera": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
+      "cordova-plugin-ionic-camera": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "browser"
     ]
   }
 }

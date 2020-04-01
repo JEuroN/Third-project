@@ -44,7 +44,7 @@ export class RegisterPage implements OnInit {
       this.showAlert('Error','Please use a valid age');
     }else if(this.password === this.cpassword){try{
       const res = await this.afauth.auth.createUserWithEmailAndPassword(this.username, this.password);
-      const gay = this.rugay();
+      const gay = this.rugay();   
       this.afstore.doc(`users/${res.user.uid}`).set({
         name: this.username,
         age: this.age,

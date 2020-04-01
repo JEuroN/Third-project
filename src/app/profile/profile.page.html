@@ -1,5 +1,19 @@
 <ion-content>
-  <ion-icon name="person-circle"></ion-icon>
+  <ion-item >
+    <ion-icon id="buttons" name="camera-outline" (click)='takeImg()'></ion-icon>
+    <ion-icon id="buttons" name="image-outline" (click)='selectImg()'></ion-icon>
+  </ion-item>
+
+  <ion-item id="profilepic">
+    <ion-img  id='propic' [src]="img" *ngIf="img; else noPic"></ion-img>    
+  </ion-item>
+
+  
+  
+  <ng-template id="profilepic" #noPic>
+    <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  </ng-template>
+
   <div id="container">
     <ion-item id="input-one">
       <ion-label>Name</ion-label>

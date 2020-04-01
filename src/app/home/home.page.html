@@ -3,14 +3,18 @@
       <ion-buttons slot="start">
         <ion-back-button></ion-back-button>
       </ion-buttons>
-      <ion-title></ion-title>
+      <ion-title id='title'>
+        <ion-icon id='butt' name="heart-outline"></ion-icon>
+        <ion-icon id='butt' name="mail-open-outline"></ion-icon>
+        <ion-icon id='butt' name="person-add-outline"></ion-icon>
+      </ion-title>
     </ion-toolbar>
   </ion-header>
   
   <ion-content>
       <ion-item id="input-one" lines="full">
         <ion-label position="floating">Email</ion-label>
-        <ion-input  [(ngModel)]="username" type="text" required></ion-input>
+        <ion-input  [(ngModel)]="username" type="email" required></ion-input>
       </ion-item>
   
       <ion-item id="input-one" lines="full">
@@ -29,4 +33,14 @@
           <ion-button id="register-color" href="#" routerLink="/register" expand="block">Register</ion-button>
         </ion-col>
       </ion-row>
+
+      <ion-item id='title'>
+        <p>Welcome to clearly not Tinder</p>
+      </ion-item>
+      <ion-item>
+        <p>Sign in or register to met new people</p>
+      </ion-item>
+      <ion-item>
+        <ion-img [src]=img></ion-img>
+      </ion-item>
   </ion-content>

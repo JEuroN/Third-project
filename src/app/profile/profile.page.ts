@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore'
 import { usersService } from '../users.service';
 import { AlertController } from '@ionic/angular';
-import { isBoolean } from 'util';
+import { Camera,CameraOptions } from '@ionic-native/camera/ngx';
+
 
 
 @Component({
@@ -15,10 +16,11 @@ import { isBoolean } from 'util';
 
 export class ProfilePage implements OnInit {
 
-    name: string = '';
-    age: number = 0;
-    sex: string = '';
-    description: string = 'asdasd';
+    img: string = null;
+    name: string = null;
+    age: number = null;
+    sex: string = null;
+    description: string = null;
     like = [
       {cont: ''},
       {cont: ''},
@@ -34,11 +36,11 @@ export class ProfilePage implements OnInit {
     public users: usersService,
     public afs: AngularFirestore,
     public alert: AlertController,
-    public router: Router
+    public router: Router,
+    public camera: Camera
     ) { }
 
   ngOnInit() {
-
     const data = this.afs.collection('users').doc(this.users.getUID()).snapshotChanges();
     data.subscribe((deta: any) =>{
       console.log(deta.payload.data());
@@ -52,6 +54,14 @@ export class ProfilePage implements OnInit {
       this.dislike[0].cont = deta.payload.data().dislike1;
       this.dislike[1].cont = deta.payload.data().dislike2;
       this.dislike[2].cont = deta.payload.data().dislike3;
+    })
+
+    const pic = this.afs.collection('Pics').doc(this.users.getUID()).snapshotChanges();
+    pic.subscribe((dita:any) => {
+      console.log(dita.payload.data())
+      if(dita.payload.data().propic != undefined){
+        this.img = dita.payload.data().propic;
+      }
     })
   }
   
@@ -107,6 +117,49 @@ export class ProfilePage implements OnInit {
     await alert.present()
   }
 
+  selectImg(){
+    let options: CameraOptions = {
+      quality: 50,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+      mediaType: this.camera.MediaType.PICTURE,
+      targetHeight: 300,
+      targetWidth: 300
+    }
+    this.camera.getPicture(options)
+    .then((imageData) => {
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.img = base64Image;
+      this.afs.doc(`Pics/${this.users.getUID()}`).set({
+        propic: this.img
+      });
+    }, (err) => {
+      console.log(err);
+    });
+  }
+
+ 
+  takeImg() {
+    let options: CameraOptions = {
+      quality: 30,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      targetHeight: 300,
+      targetWidth: 300
+    }
+    this.camera.getPicture(options)
+    .then((imageData) => {
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.img = base64Image;
+      this.afs.doc(`Pics/${this.users.getUID()}`).set({
+        propic: this.img
+      });
+    }, (err) => {
+      console.log(err);
+    });
+  }
   
   logout(){
     this.router.navigate(['home']);

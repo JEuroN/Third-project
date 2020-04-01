@@ -17,6 +17,7 @@ export class HomePage {
   password: string = '';
   error: string = 'Ingrese sus datos';
   ola: any;
+  img: any = 'assets/img/people.jpg'
 
   constructor(
     public afauth: AngularFireAuth,

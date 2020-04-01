@@ -17,6 +17,8 @@ import { environment } from '../environments/environment';
 import { usersService } from './users.service';
 import { FormServiceService } from './form-service.service';
 
+import { Camera } from '@ionic-native/camera/ngx'
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -33,7 +35,8 @@ import { FormServiceService } from './form-service.service';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     usersService,
-    FormServiceService
+    FormServiceService,
+    Camera
   ],
   bootstrap: [AppComponent]
 })

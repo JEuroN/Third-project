@@ -40,10 +40,26 @@ ion-content{
 
 ion-icon{
     font-size: 40px;
-    color: white;
     align-content: center;
 }
 
+#propic{
+    margin:0 auto;
+    max-width: 400px !important;
+    max-height: 300px !important;
+    min-width: 400px !important;
+    min-height: 300px !important;
+    border-radius: 50;
+}
+
+
+#profilepic{
+    text-align: center;
+    justify-content: center;
+    width: 50;
+    height: 50;
+    border-radius: 50;
+}
 
 ion-item{
     --background: rgb(195, 60, 60);
@@ -51,4 +67,8 @@ ion-item{
 
 ion-title{
     background: rgb(195, 60, 60);
+}
+
+#buttons{
+    margin: 0 auto;
 }
