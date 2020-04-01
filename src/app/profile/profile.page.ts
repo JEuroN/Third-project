@@ -124,6 +124,7 @@ export class ProfilePage implements OnInit {
       encodingType: this.camera.EncodingType.JPEG,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
       mediaType: this.camera.MediaType.PICTURE,
+      allowEdit: true,
       targetHeight: 300,
       targetWidth: 300
     }
@@ -146,6 +147,7 @@ export class ProfilePage implements OnInit {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
+      allowEdit: true,
       targetHeight: 300,
       targetWidth: 300
     }
