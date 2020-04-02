@@ -59,7 +59,7 @@ export class RegisterPage implements OnInit {
         hate3: ''
       })
       console.log(res);
-      this.router.navigate(['/Login']);
+      this.router.navigate(['/home']);
     } catch(err){
       console.log(err);
       console.log(err.message);
