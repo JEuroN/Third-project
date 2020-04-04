@@ -1,4 +1,19 @@
 <ion-content>
+  <ion-header>     
+    <ion-toolbar>
+    <ion-buttons id='tool'>
+      <ion-button  routerLink='/chats'>
+        Chats
+      </ion-button>
+      <ion-button  routerLink='/cards'>
+        Match
+      </ion-button>
+      <ion-button routerLink='/home'>
+        Logout
+      </ion-button>
+  </ion-buttons>    
+</ion-toolbar>
+</ion-header>
   <ion-item >
     <ion-icon id="buttons" name="camera-outline" (click)='takeImg()'></ion-icon>
     <ion-icon id="buttons" name="image-outline" (click)='selectImg()'></ion-icon>
@@ -11,7 +26,7 @@
   
   
   <ng-template id="profilepic" #noPic>
-    <ion-progress-bar type="indeterminate"></ion-progress-bar>
+    <<ion-progress-bar type="indeterminate"></ion-progress-bar>>
   </ng-template>
 
   <div id="container">
@@ -54,10 +69,9 @@
       </ion-item>
    
     <ion-item >
-      <ion-button (click)='edit()'>Update</ion-button>
-      <ion-button id="out-button" (click)='logout()'>Logout</ion-button>
-      
+      <ion-button style='margin: 0 auto;' (click)='edit()'>Update</ion-button>
     </ion-item>
     
   </div>
+
 </ion-content>

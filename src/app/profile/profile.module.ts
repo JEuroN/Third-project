@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UcWidgetModule } from 'ngx-uploadcare-widget';
 import { IonicModule } from '@ionic/angular';
-
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
@@ -14,7 +13,7 @@ import { ProfilePage } from './profile.page';
     FormsModule,
     IonicModule,
     ProfilePageRoutingModule,
-    UcWidgetModule,
+    UcWidgetModule
   ],
   declarations: [ProfilePage]
 })

@@ -50,16 +50,16 @@ export class RegisterPage implements OnInit {
         age: this.age,
         sex: gay,
         isAdmin: 'false',
-        description: '',
-        Like1: '',
-        like2: '',
-        like3: '',
-        hate1: '',
-        hate2: '',
-        hate3: ''
+        description: 'You have no data, please write something and click update below to add the information that others wil see',
+        Like1: 'Please write something you like',
+        like2: 'Please write something you like',
+        like3: 'Please write something you like',
+        hate1: 'Please write something you dislike',
+        hate2: 'Please write something you dislike',
+        hate3: 'Please write something you dislike'
       })
       console.log(res);
-      this.router.navigate(['/Login']);
+      this.router.navigate(['/home']);
     } catch(err){
       console.log(err);
       console.log(err.message);
