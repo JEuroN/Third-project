@@ -6,7 +6,7 @@
         margin: 0 auto;
         color: white;
         height: 30px;
-        width: 110px
+        width: 90px
     
     }
     #hov:hover{
@@ -20,7 +20,31 @@
         font-size: 30px;
     }
 
+
 }
+
+ion-range{
+    --height: 30px
+}
+
 ion-toolbar{
     --background: rgb(195, 60, 60)
+}
+
+#ion-but{
+    margin: 0 auto;
+    color: white;
+    height: 40px;
+    font-size: 15px;
+}
+
+ion-item{
+    --background: rgb(255, 118, 118);
+    
+}
+
+ion-content{
+    --background: rgb(255, 118, 118);
+    --border-style: unset!important;
+    color: white;
 }

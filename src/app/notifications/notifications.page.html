@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar id='tool'>
+    <ion-buttons id='tool'>
+      <ion-button id='icon' [ngStyle]="{'color': value ? 'white' : 'gold'}" routerLink='/cards' >
+        Match
+      </ion-button>
+      <ion-button id='hov' routerLink='/chat'>
+        Chats
+      </ion-button>
+      <ion-button id='hov' routerLink='/profile'>
+        Profile
+      </ion-button>
+      <ion-button id='hov' routerLink='/home'>
+        Logout
+      </ion-button>
+  </ion-buttons>    
+</ion-toolbar>
+</ion-header>
+
+<ion-content lines='none'>
+
+  <p style="margin: 5; position: relative; text-align: center; " >Please <br /> Select what are you looking to meet</p>
+  <ion-item id="input-one" *ngFor="let entry of form">
+    <ion-label>{{entry.val}}</ion-label>
+    <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+  </ion-item>
+    
+    <p style="margin: 5; position: relative; text-align: center; ">Please select the age range</p>
+    <ion-item  lines='none'>
+      <p>Set minimal age</p>
+      <ion-range style='margin-left: 9px' min='18' max='60'  (ionChange)="setMin($event)"></ion-range>
+      <p>{{mAge}}</p>
+    </ion-item>
+
+  <ion-item  lines='none'>
+    <p>Set maximun age</p>
+    <ion-range min='{{mAge}}' max='60' value='{{mxAge}}' (ionChange)='setMax($event)'></ion-range>
+    <p>{{mxAge}}</p>
+  </ion-item>
+  <ion-item lines='none'>
+    <ion-button id='ion-but' (click)='setParam()'>
+      Save parameters
+    </ion-button>
+  </ion-item>
+
+
+
+</ion-content>

@@ -1,21 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
+import { NotificationsPageRoutingModule } from './notifications-routing.module';
 
-import { CardsPageRoutingModule } from './cards-routing.module';
-
-import { CardsPage } from './cards.page';
-
+import { NotificationsPage } from './notifications.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CardsPageRoutingModule
+    NotificationsPageRoutingModule
   ],
-  declarations: [CardsPage]
+  declarations: [NotificationsPage]
 })
-export class CardsPageModule {}
+export class NotificationsPageModule {}

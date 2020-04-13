@@ -1,13 +1,16 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar id='tool'>
     <ion-buttons id='tool'>
-      <ion-button  routerLink='/chat'>
+      <ion-button id='icon' routerLink='/notifications' >
+        <ion-icon name='options-outline' style='color: white;'></ion-icon>
+      </ion-button>
+      <ion-button id='hov' [ngStyle]="{'color': value ? 'white' : 'gold'}" routerLink='/chat'>
         Chats
       </ion-button>
-      <ion-button  routerLink='/profile'>
+      <ion-button id='hov' routerLink='/profile'>
         Profile
       </ion-button>
-      <ion-button routerLink='/home'>
+      <ion-button id='hov' routerLink='/home'>
         Logout
       </ion-button>
   </ion-buttons>    
@@ -16,4 +19,50 @@
 
 <ion-content>
 
+  <div class='status'>
+    <div [style.opacity]="crossVis? '1' : '0'">
+      <ion-icon name='heart-outline'></ion-icon>
+    </div>
+
+    <div [style.opacity]="heartVis? '1' : '0'">
+      <ion-icon name='heart-dislike-outline'></ion-icon>
+    </div>
+
+  </div>
+
+  <div class='card'  *ngIf="cards.length > 0; else nomatch">
+    <div #tinderCards class='cards' (pan)='handlePick($event)' (panend)='handlePickEnd($event)' (transitionend)='handleShift()' *ngFor="let item of cards; let i = index" 
+    [ngStyle]="{'zIndex': cards.length - i, transform:'scale(' + (20 - i) / 20 + ') translateY(-' + 20 * i + 'px)'}">
+      <ion-img [src]='item.img'></ion-img>
+      <ion-title>Name</ion-title>
+      <p>{{item.si}}</p>
+      <ion-title>Age</ion-title>
+      <p>{{item.age}}</p>
+      <ion-title>Description</ion-title>
+      <p>{{item.des}}</p>
+    </div>
+  </div>
+
+  <div class='buttons'>
+
+    <button (click)='clickBtn($event, false)'><ion-icon name='heart-dislike-outline' style="color: blue;"></ion-icon></button>
+
+    <button (click)='clickBtn($event, true)'><ion-icon name='heart-outline' style="color: rgb(251, 61, 86);"></ion-icon></button>
+
+  </div>
+
 </ion-content>
+
+<ng-template #notification>
+  <ion-icon name='notifications-outline' style='color: yellow;'></ion-icon>
+</ng-template>
+
+<ng-template #nomatch>
+  <div class="card">
+    <p>Sorry<br/> it appears that you dont have a match yet :c</p>
+    <p>Mardito feo bobo</p>
+    <p *ngIf="params == undefined">It appears you dont have search parameters</p>
+  </div>
+</ng-template>
+
+

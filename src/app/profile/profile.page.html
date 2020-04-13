@@ -2,7 +2,7 @@
   <ion-header>     
     <ion-toolbar>
     <ion-buttons id='tool'>
-      <ion-button  routerLink='/chats'>
+      <ion-button  routerLink='/chat'>
         Chats
       </ion-button>
       <ion-button  routerLink='/cards'>
@@ -14,6 +14,12 @@
   </ion-buttons>    
 </ion-toolbar>
 </ion-header>
+
+<ng-template #notification>
+  <ion-icon name='notifications-outline' style='color: yellow;'></ion-icon>
+</ng-template>
+
+
   <ion-item >
     <ion-icon id="buttons" name="camera-outline" (click)='takeImg()'></ion-icon>
     <ion-icon id="buttons" name="image-outline" (click)='selectImg()'></ion-icon>
@@ -32,17 +38,17 @@
   <div id="container">
     <ion-item id="input-one">
       <ion-label>Name</ion-label>
-      <ion-input placeholder={{name}} [(ngModel)]='name'></ion-input>
+      <ion-input placeholder='Please, wait' [(ngModel)]='name' ngDefaultControl></ion-input>
     </ion-item>
 
     <ion-item id="input-one">
       <ion-label>Age</ion-label>
-      <ion-input placeholder={{age}} [(ngModel)]='Age'></ion-input>
+      <ion-input placeholder='While' [(ngModel)]='age' ngDefaultControl></ion-input>
     </ion-item>
 
     <ion-item id="input-one">
       <ion-label>Sex</ion-label>
-      <ion-input placeholder= {{sex}} [(ngModel)]='sex'></ion-input>
+      <ion-input placeholder='Loads' [(ngModel)]='sex' ngDefaultControl readonly='true'></ion-input>
     </ion-item>
 
     <ion-item>

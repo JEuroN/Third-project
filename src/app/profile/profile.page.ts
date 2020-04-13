@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { async } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore'
 import { usersService } from '../users.service';
@@ -32,10 +31,12 @@ export class ProfilePage implements OnInit {
       {cont: ''}
     ]
 
+    value: boolean = true;
+
   constructor(
     public users: usersService,
-    public afs: AngularFirestore,
     public alert: AlertController,
+    public afs: AngularFirestore,
     public router: Router,
     public camera: Camera
     ) { }
@@ -43,17 +44,17 @@ export class ProfilePage implements OnInit {
   ngOnInit() {
     const data = this.afs.collection('users').doc(this.users.getUID()).snapshotChanges();
     data.subscribe((deta: any) =>{
-      console.log(deta.payload.data());
-      this.name = deta.payload.data().name;
-      this.age = deta.payload.data().age;
-      this.sex = deta.payload.data().sex ? ('Masculino') : ('Femenino');
-      this.description = deta.payload.data().description;
-      this.like[0].cont = deta.payload.data().like1;
-      this.like[1].cont = deta.payload.data().like2;
-      this.like[2].cont = deta.payload.data().like3;
-      this.dislike[0].cont = deta.payload.data().dislike1;
-      this.dislike[1].cont = deta.payload.data().dislike2;
-      this.dislike[2].cont = deta.payload.data().dislike3;
+      let nDeta = deta.payload.data();
+      this.name = nDeta.name;
+      this.age = nDeta.age;
+      this.sex = nDeta.sex ? ('Masculino') : ('Femenino');
+      this.description = nDeta.description;
+      this.like[0].cont = nDeta.like1;
+      this.like[1].cont = nDeta.like2;
+      this.like[2].cont = nDeta.like3;
+      this.dislike[0].cont = nDeta.dislike1;
+      this.dislike[1].cont = nDeta.dislike2;
+      this.dislike[2].cont = nDeta.dislike3;
     })
 
     const pic = this.afs.collection('Pics').doc(this.users.getUID()).snapshotChanges();
@@ -61,6 +62,8 @@ export class ProfilePage implements OnInit {
       console.log(dita.payload.data())
       if(dita.payload.data().propic != undefined){
         this.img = dita.payload.data().propic;
+      }else{
+        this.img = 'assets/img/default-profile-picture1.jpg'
       }
     })
   }
@@ -86,7 +89,7 @@ export class ProfilePage implements OnInit {
     
   edit(){
     //Hace el edit de los datos del user
-    if(this.name == '' || this.age <= 12 || Number.isInteger(this.age) != true){
+    if(this.name == '' || this.age < 18 || Number.isInteger(this.age) != true){
       this.showAlert('Error!', 'Wrong data');
     }else{
       const newData = {

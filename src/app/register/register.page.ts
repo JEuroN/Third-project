@@ -19,8 +19,8 @@ export class RegisterPage implements OnInit {
   error: string = 'Ingrese sus datos';
 
   public form = [
-    {val: 'Hombre', isChecked: false, id: 0},
-    {val: 'Mujer', isChecked: false, id: 1}
+    {val: 'Men', isChecked: false, id: 0},
+    {val: 'Women', isChecked: false, id: 1}
   ]
   constructor(
     public afauth: AngularFireAuth,
@@ -40,7 +40,7 @@ export class RegisterPage implements OnInit {
       this.showAlert('Error','Please use a valid password');
     }else if(this.form[0].isChecked == false && this.form[1].isChecked == false){
       this.showAlert('Error','Please select a gender'); 
-    }else if(this.age < 13 || Number.isInteger(this.age) == false){
+    }else if(this.age < 18 || Number.isInteger(this.age) == false){
       this.showAlert('Error','Please use a valid age');
     }else if(this.password === this.cpassword){try{
       const res = await this.afauth.auth.createUserWithEmailAndPassword(this.username, this.password);

@@ -18,4 +18,11 @@ export class usersService{
     getUID(){
         return this.user.uid;
     }
+
+    flush(){
+        this.setUser({
+            user: '',
+            uid: ''
+        })
+    }
 }

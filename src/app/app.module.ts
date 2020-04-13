@@ -17,10 +17,12 @@ import { environment } from '../environments/environment';
 import { usersService } from './users.service';
 import { FormServiceService } from './form-service.service';
 
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx'
 import { Camera } from '@ionic-native/camera/ngx'
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent
+  ],
   entryComponents: [],
   imports: [BrowserModule, 
     IonicModule.forRoot(), 
@@ -28,7 +30,7 @@ import { Camera } from '@ionic-native/camera/ngx'
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
-    UcWidgetModule,
+    UcWidgetModule
   ],
   providers: [
     StatusBar,
@@ -36,7 +38,8 @@ import { Camera } from '@ionic-native/camera/ngx'
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     usersService,
     FormServiceService,
-    Camera
+    Camera,
+    LocalNotifications
   ],
   bootstrap: [AppComponent]
 })

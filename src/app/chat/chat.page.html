@@ -4,7 +4,7 @@
       <ion-button  routerLink='/profile'>
         Profile
       </ion-button>
-      <ion-button  routerLink='/cards'>
+      <ion-button [ngStyle]="{'color': value ? 'white' : 'gold'}" routerLink='/cards'>
         Match
       </ion-button>
       <ion-button routerLink='/home'>
@@ -17,3 +17,7 @@
 <ion-content>
 
 </ion-content>
+
+<ng-template #notification>
+  <ion-icon name='notifications-outline' style='color: yellow;'></ion-icon>
+</ng-template>

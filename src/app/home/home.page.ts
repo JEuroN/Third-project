@@ -33,6 +33,10 @@ export class HomePage {
 
   }
 
+  ionViewDidEnter(){
+    this.users.flush();
+  }
+
 //Verifica que todos los campos tengan value, de tenerlo, te logea
   async login(){
     console.log(this.username, this.password);

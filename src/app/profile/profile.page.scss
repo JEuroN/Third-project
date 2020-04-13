@@ -72,11 +72,27 @@ ion-title{
 }
 
 #tool{
+    
+    margin: 0 auto;
+    height: 50px;
     ion-button{
         margin: 0 auto;
-        background-color: rgb(113, 188, 231);
-        border-radius: 20px;
+        color: white;
+        height: 30px;
+        width: 110px
+    
     }
+    #hov:hover{
+        background: rgb(134, 8, 8)
+    }
+    #icon{
+        width: 60px;
+    }
+
+    ion-icon{
+        font-size: 30px;
+    }
+
 }
 
 ion-toolbar{
