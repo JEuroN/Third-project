@@ -9,7 +9,7 @@
 }
 
 #head-one{
-  background: rgb(255, 87, 87);
+  background: #FFFFFF;
 }
 #container strong {
   font-size: 20px;
@@ -20,7 +20,7 @@
   font-size: 16px;
   line-height: 22px;
 
-  color: rgb(255, 87, 87);
+  color: #FFFFFF;
 
   margin: 0;
 }
@@ -36,25 +36,26 @@ ion-content ion-toolbar {
   --background: translucent;
 }
 #input-one{
-  --background: rgb(255, 87, 87);
+  --background: #5285C6;
 }
 #login-bar{
-  --background: rgb(195, 60, 60);
+  --background: #FFFFFF;
 }
 ion-content{
-  --background:  rgb(195, 60, 60);
+  --background:  #FFFFFF;//white
   color: white;
 }
 ion-item{
-  --background: rgb(195, 60, 60);
+  --background: #FFFFFF;
   p{
     margin: 0 auto;
     font-size: larger;
+    color: #2E4251;
   }
 }
 
 ion-list{
-  background:  rgb(255, 87, 87);
+  background:  #FFFFFF;
 }
 
 h2{
@@ -65,7 +66,7 @@ h2{
 
 ion-button{
   color: black;
-  --background: rgb(216, 84, 84);
+  --background: #5285C6;//blue
 }
 
 ion-icon{

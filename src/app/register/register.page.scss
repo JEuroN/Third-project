@@ -8,22 +8,27 @@ ion-label {
     }
 }
 #input-one{
-    --background: rgb(255, 87, 87);
+    --background: #5285C6;
   }
+
+#regi-button{
+    color: black;
+    --background: #5285C6;//blue
+}
 #register-bar{
 
-    --background:  rgb(195, 60, 60);
+    --background:  #FFFFFF;
 }
 ion-content{
-    --background: rgb(195, 60, 60);
+    --background: #FFFFFF;
 }
 
 ion-list{
-    background: rgb(187, 44, 44);
+    background: #FFFFFF;
 }
 
 ion-input{
-    color: black;
+    color: #5285C6;
 }
 
 ion-label{
@@ -39,6 +44,6 @@ h2{
 }
 
 ion-button{
-    color: black;
+    color: #5285C6;
     --background: rgb(216, 84, 84);
 }
