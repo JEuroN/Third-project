@@ -28,13 +28,13 @@
     <p style="margin: 5; position: relative; text-align: center; ">Please select the age range</p>
     <ion-item  lines='none'>
       <p>Set minimal age</p>
-      <ion-range style='margin-left: 9px' min='18' max='60'  (ionChange)="setMin($event)"></ion-range>
+      <ion-range style='margin-left: 9px' min='18' max='60' color='dark' (ionChange)="setMin($event)"></ion-range>
       <p>{{mAge}}</p>
     </ion-item>
 
   <ion-item  lines='none'>
     <p>Set maximun age</p>
-    <ion-range min='{{mAge}}' max='60' value='{{mxAge}}' (ionChange)='setMax($event)'></ion-range>
+    <ion-range min='{{mAge}}' max='60' value='{{mxAge}}' color='dark' (ionChange)='setMax($event)'></ion-range>
     <p>{{mxAge}}</p>
   </ion-item>
   <ion-item lines='none'>

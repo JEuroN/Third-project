@@ -53,12 +53,7 @@ export class CardsPage implements OnInit{
 
   ionViewDidEnter(){
     this.cards = this.not.getData();
-    if(this.cards.length > 0){
-      this.notif.schedule({
-        id: Math.random(),
-        text: 'You have a Match!'
-      })
-    }
+
   }
 
 
