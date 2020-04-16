@@ -34,18 +34,17 @@
     <div #tinderCards class='cards' (pan)='handlePick($event)' (panend)='handlePickEnd($event)' (transitionend)='handleShift()' *ngFor="let item of cards; let i = index" 
     [ngStyle]="{'zIndex': cards.length - i, transform:'scale(' + (20 - i) / 20 + ') translateY(-' + 20 * i + 'px)'}">
       <ion-img [src]='item.img'></ion-img>
-      <ion-title>Name</ion-title>
-      <p>{{item.si}}</p>
-      <ion-title>Age</ion-title>
+      <p (ion-click)='visit(item.id)'>{{item.name}}</p>
       <p>{{item.age}}</p>
-      <ion-title>Description</ion-title>
+      <p>{{item.sex}}</p>
+      <p>Description<p>
       <p>{{item.des}}</p>
     </div>
   </div>
 
   <div class='buttons'>
 
-    <button (click)='clickBtn($event, false)'><ion-icon name='heart-dislike-outline' style="color: blue;"></ion-icon></button>
+    <button (click)='clickBtn($event, false)'><ion-icon name='heart-dislike-outline' style="color: rgb(21, 21, 151);"></ion-icon></button>
 
     <button (click)='clickBtn($event, true)'><ion-icon name='heart-outline' style="color: rgb(251, 61, 86);"></ion-icon></button>
 

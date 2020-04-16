@@ -5,7 +5,7 @@
       <ion-button  routerLink='/chat'>
         Chats
       </ion-button>
-      <ion-button  [ngStyle]="{'color': value ? 'white' : 'gold'}" routerLink='/cards'>
+      <ion-button  routerLink='/cards'>
         Match
       </ion-button>
       <ion-button routerLink='/home'>
@@ -15,12 +15,10 @@
 </ion-toolbar>
 </ion-header>
 
+<ng-template #notification>
+  <ion-icon name='notifications-outline' style='color: yellow;'></ion-icon>
+</ng-template>
 
-
-  <ion-item >
-    <ion-icon id="buttons" name="camera-outline" (click)='takeImg()'></ion-icon>
-    <ion-icon id="buttons" name="image-outline" (click)='selectImg()'></ion-icon>
-  </ion-item>
 
   <ion-item id="profilepic">
     <ion-img  id='propic' [src]="img" *ngIf="img; else noPic"></ion-img>    
@@ -35,12 +33,12 @@
   <div id="container">
     <ion-item id="input-one">
       <ion-label>Name</ion-label>
-      <ion-input [(ngModel)]='name' ngDefaultControl></ion-input>
+      <ion-input placeholder='Please, wait' [(ngModel)]='name' ngDefaultControl readonly='true'></ion-input>
     </ion-item>
 
     <ion-item id="input-one">
       <ion-label>Age</ion-label>
-      <ion-input type='number' [(ngModel)]='age' ngDefaultControl></ion-input>
+      <ion-input placeholder='While' [(ngModel)]='age' ngDefaultControl readonly='true'></ion-input>
     </ion-item>
 
     <ion-item id="input-one">
@@ -53,7 +51,7 @@
     </ion-item>
 
     <ion-item id='input-one'>
-      <ion-textarea id='texta' rows='1' (input)='change()' [(ngModel)]='description'></ion-textarea>
+      <ion-textarea id='texta' rows='1' (input)='change()' [(ngModel)]='description' readonly='true'></ion-textarea>
     </ion-item>
 
     <ion-item>
@@ -61,19 +59,15 @@
     </ion-item>
 
       <ion-item id="input-one" *ngFor="let entry of like">
-        <ion-input placeholder={{Likes}} [(ngModel)]="entry.cont"></ion-input>
+        <ion-input placeholder={{Likes}} [(ngModel)]="entry.cont" readonly='true'></ion-input>
       </ion-item>
     
     <ion-item>
       <ion-title style="text-align: center;"><b>Dislikes</b></ion-title>
     </ion-item>
       <ion-item id="input-one" *ngFor="let entry of dislike">
-        <ion-input placeholder={{Disikes}} [(ngModel)]="entry.cont"></ion-input>
+        <ion-input placeholder={{Disikes}} [(ngModel)]="entry.cont" readonly='true'></ion-input>
       </ion-item>
-   
-    <ion-item >
-      <ion-button style='margin: 0 auto;' (click)='edit()'>Update</ion-button>
-    </ion-item>
     
   </div>
 

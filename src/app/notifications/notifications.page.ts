@@ -3,6 +3,7 @@ import { usersService } from '../users.service';
 import { AlertController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx'
+import { NotifiService } from '../notifi.service';
 
 @Component({
   selector: 'app-notifications',
@@ -15,8 +16,7 @@ export class NotificationsPage implements OnInit {
   config: any;
   public form = [
     {val: 'Men', isChecked: false, id: 0},
-    {val: 'Women', isChecked: false, id: 1},
-    {val: 'Apache Combat Helicopter', isChecked: false, id: 2}
+    {val: 'Women', isChecked: false, id: 1}
   ]
 
   mAge: number = 18;
@@ -25,32 +25,34 @@ export class NotificationsPage implements OnInit {
     public users: usersService,
     public afs: AngularFirestore,
     public alert: AlertController,
-    public notif: LocalNotifications
+    public notif: LocalNotifications,
+    private not: NotifiService
   ) { }
 
   ngOnInit(){
-    const upd = this.afs.doc(`matConfig/${this.users.getUID()}`).snapshotChanges();
-    upd.subscribe( (n: any) => {
-      this.config = n.payload.data();
-    })
-    
+
+
     
   }
 
-  ionViewDidEnter() {
-      if(this.config != undefined){
-            const upd = this.afs.doc(`match/${this.users.getUID()}`).snapshotChanges();
-      upd.subscribe( N => {
-        this.value = false;
-        if(this.value != undefined ){
-        this.notif.schedule({
-          id: Math.random(),
-          text: 'New Match!'
-        })}
-      })
+  
+  ionViewDidLeave(){
+    this.value = true;
+    console.log('a')
+    this.not.clear();
+  }
+
+  ionViewWillEnter(){
+    let check = this.not.getData();
+    if(check.length > 0){
+      this.value = false;
+          this.notif.schedule({
+            id: Math.random(),
+            text: 'You have a Match!'
+          })
     }
-
   }
+
 
   setMin(e){
     console.log(e.target.value);
@@ -73,7 +75,6 @@ export class NotificationsPage implements OnInit {
       this.afs.doc(`matConfig/${this.users.getUID()}`).set({
         men: this.form[0].isChecked,
         women: this.form[1].isChecked,
-        chop: this.form[2].isChecked,
         mAge: this.mAge,
         mxAge: this.mxAge
       });

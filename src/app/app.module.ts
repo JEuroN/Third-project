@@ -19,6 +19,7 @@ import { FormServiceService } from './form-service.service';
 
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx'
 import { Camera } from '@ionic-native/camera/ngx'
+import { NotifiService } from './notifi.service';
 
 @NgModule({
   declarations: [AppComponent
@@ -37,7 +38,7 @@ import { Camera } from '@ionic-native/camera/ngx'
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     usersService,
-    FormServiceService,
+    NotifiService,
     Camera,
     LocalNotifications
   ],

@@ -1,6 +1,9 @@
 import { Component, Renderer2, ViewChildren, QueryList, ElementRef, Output, EventEmitter, OnInit } from '@angular/core';
 import { usersService } from '../users.service';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { NotifiService } from '../notifi.service';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx'
 
 @Component({
   selector: 'app-cards',
@@ -12,28 +15,16 @@ export class CardsPage implements OnInit{
   value: boolean = true;
   params: boolean = true;
   config: any;
-  cards = [
-    {
-      si: 'algo',
-      img: 'assets/img/people.jpg',
-      des: 'alguito',
-      age: '22'
-
-    },
-    {
-      si: 'algo',
-      img: 'assets/img/people.jpg',
-      des: 'alguito',
-      age: '23'
-    }
-
-  ];
+  cards:any = [];
+  election: boolean = null;
 
   moveOutWidth: number;
   shiftReq: boolean;
   transOn: boolean;
   heartVis: boolean;
   crossVis: boolean;
+
+
 
   @Output() cho = new EventEmitter();
   @ViewChildren('tinderCards') tinderCards: QueryList<ElementRef>
@@ -43,28 +34,35 @@ export class CardsPage implements OnInit{
   constructor(
   private render: Renderer2,
   private user: usersService,
-  private afs: AngularFirestore
+  private afs: AngularFirestore,
+  private router: Router,
+  private not: NotifiService,
+  private notif: LocalNotifications
   ) { }
 
-   ngOnInit(){
-    const upd = this.afs.doc(`matConfig/${this.user.getUID()}`).snapshotChanges();
-    upd.subscribe( (n: any) => {
-      this.config = n.payload.data();
-    })
-    
-    
+  ngOnInit(){
+   
+
   }
 
   ionViewDidLeave(){
     this.value = true;
+    this.not.clear();
     console.log('a')
   }
 
-  ionViewWillEnter(){
-    if(this.config != undefined){
-
+  ionViewDidEnter(){
+    this.cards = this.not.getData();
+    if(this.cards.length > 0){
+      this.notif.schedule({
+        id: Math.random(),
+        text: 'You have a Match!'
+      })
     }
   }
+
+
+
 
   ngAfterViewInit(): void {
     this.moveOutWidth = document.documentElement.clientWidth * 1.5;
@@ -80,10 +78,12 @@ export class CardsPage implements OnInit{
       return false;
     if(bool){
       this.cardsArray[0].nativeElement.style.transform = 'translate(' + this.moveOutWidth + 'px, -100px) rotate(-30deg)';
+      this.election = true;
       this.toggle(false, true);
 
     } else {
       this.cardsArray[0].nativeElement.style.transform = 'translate(-' + this.moveOutWidth + 'px, -100px) rotate(30deg)';
+      this.election = false;
       this.toggle(true, false);
 
     }
@@ -91,19 +91,22 @@ export class CardsPage implements OnInit{
     this.transOn = true;
   }
 
-  toggle(cross, heart){
+  toggle(cross: boolean, heart: boolean){
     this.crossVis = cross;
     this.heartVis = heart;
   }
 
   handleShift(){
+    if(this.election){
+      this.not.updateHeart(this.cards[0].id)
+    }else{
+      this.not.updateCross(this.cards[0].id)
+    }
     this.transOn = false;
     this.toggle(false,false);
     if(this.shiftReq){
       this.shiftReq = false;
       this.cards.shift();
-      console.log(this.cardsArray);
-      console.log(this.cards);
     }
   }
 
@@ -161,5 +164,10 @@ export class CardsPage implements OnInit{
       choice: a,
       payload: b
     })
+  }
+
+  visit(id: string){
+    console.log(id);
+    this.router.navigate(['/form', {msg: id}]);
   }
 }

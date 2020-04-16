@@ -50,7 +50,7 @@ export class HomePage {
         user: this.username,
         uid : res.user.uid
       })
-        this.router.navigate(['profile']);
+        this.router.navigate(['cards']);
 
       
     } catch(err) {

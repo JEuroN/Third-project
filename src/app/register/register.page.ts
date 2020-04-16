@@ -56,7 +56,13 @@ export class RegisterPage implements OnInit {
         like3: 'Please write something you like',
         hate1: 'Please write something you dislike',
         hate2: 'Please write something you dislike',
-        hate3: 'Please write something you dislike'
+        hate3: 'Please write something you dislike',
+        img: ''
+      })
+
+      this.afstore.doc(`match/${res.user.uid}`).set({
+        cross: [],
+        heart: []
       })
       console.log(res);
       this.router.navigate(['/home']);

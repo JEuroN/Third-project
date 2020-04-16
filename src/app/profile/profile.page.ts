@@ -4,6 +4,8 @@ import { AngularFirestore } from '@angular/fire/firestore'
 import { usersService } from '../users.service';
 import { AlertController } from '@ionic/angular';
 import { Camera,CameraOptions } from '@ionic-native/camera/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx'
+import { NotifiService } from '../notifi.service';
 
 
 
@@ -38,7 +40,9 @@ export class ProfilePage implements OnInit {
     public alert: AlertController,
     public afs: AngularFirestore,
     public router: Router,
-    public camera: Camera
+    public notif: LocalNotifications,
+    public camera: Camera,
+    public not: NotifiService
     ) { }
 
   ngOnInit() {
@@ -55,21 +59,35 @@ export class ProfilePage implements OnInit {
       this.dislike[0].cont = nDeta.dislike1;
       this.dislike[1].cont = nDeta.dislike2;
       this.dislike[2].cont = nDeta.dislike3;
-    })
-
-    const pic = this.afs.collection('Pics').doc(this.users.getUID()).snapshotChanges();
-    pic.subscribe((dita:any) => {
-      console.log(dita.payload.data())
-      if(dita.payload.data().propic != undefined){
-        this.img = dita.payload.data().propic;
+      if(nDeta.img != undefined){
+        this.img = nDeta.img;
       }else{
         this.img = 'assets/img/default-profile-picture1.jpg'
       }
     })
+
+   
+    
+
   }
   
   ionViewWillEnter(){
     this.change();
+    let check = this.not.getData();
+    if(check.length > 0){
+      this.value = false;
+          this.notif.schedule({
+            id: Math.random(),
+            text: 'You have a Match!'
+          })
+    }
+  }
+
+  
+  ionViewDidLeave(){
+    this.value = true;
+    console.log('a')
+    this.not.clear();
   }
 
   change(){
@@ -89,8 +107,12 @@ export class ProfilePage implements OnInit {
     
   edit(){
     //Hace el edit de los datos del user
-    if(this.name == '' || this.age < 18 || Number.isInteger(this.age) != true){
-      this.showAlert('Error!', 'Wrong data');
+    if(this.name == '')
+      this.showAlert('Error!', 'Wrong name');
+    else if(Number.isInteger(this.age) != true){
+      this.showAlert('Error!', 'Bad format for age')
+    }else if(this.age > 60 || this.age < 18){
+      this.showAlert('Error!','Age range is 18-60');
     }else{
       const newData = {
         name: this.name,
@@ -158,8 +180,18 @@ export class ProfilePage implements OnInit {
     .then((imageData) => {
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.img = base64Image;
-      this.afs.doc(`Pics/${this.users.getUID()}`).set({
-        propic: this.img
+      this.afs.doc(`users/${this.users.getUID()}`).set({
+          name: this.name,
+          age: this.age,
+          sex: this.sex,
+          description: this.description,
+          like1: this.like[0].cont,
+          like2: this.like[1].cont,
+          like3: this.like[2].cont,
+          dislike1: this.dislike[0].cont,
+          dislike2: this.dislike[1].cont,
+          dislike3: this.dislike[2].cont,
+          img: this.img
       });
     }, (err) => {
       console.log(err);
