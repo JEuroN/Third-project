@@ -85,19 +85,23 @@ export class CardsPage implements OnInit{
     this.shiftReq = true;
     this.transOn = true;
   }
-
   toggle(cross: boolean, heart: boolean){
+
     this.crossVis = cross;
     this.heartVis = heart;
   }
 
-  //handleShift() al ser llamado actualiza la coleccion donde estan los usuarios que ya fueron encontrados, y luego limpia la carta que ha sido respondida
+ 
   handleShift(){
-    if(this.election){
+
+    if(this.election == true){
       this.not.updateHeart(this.cards[0].id)
-    }else{
+      console.log('heart')
+    }else if(this.election== false){
       this.not.updateCross(this.cards[0].id)
+      console.log('cross')
     }
+
     this.transOn = false;
     this.toggle(false,false);
     if(this.shiftReq){
@@ -131,8 +135,17 @@ export class CardsPage implements OnInit{
 
   handlePickEnd(event){
     this.toggle(false,false);
-    if(!this.cards.length) 
+    if(!this.cards.length){
+      console.log(event.deltaX)
+      if(event.deltaX > 150){
+        this.not.updateHeart(this.cards[0].id)
+        console.log('heart')
+      }else if(event.deltaX < -150){
+        this.not.updateCross(this.cards[0].id)
+        console.log('cross')
+      }
       return;
+    } 
     this.render.removeClass(this.cardsArray[0].nativeElement, 'moving');
     let keep = Math.abs(event.deltaX) < 100 || Math.abs(event.velocityX) < 0.5;
     if(keep){
@@ -150,6 +163,14 @@ export class CardsPage implements OnInit{
       this.render.setStyle(this.cardsArray[0].nativeElement, 'transform', 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)');
 
       this.shiftReq = true;
+
+      if(event.deltaX > 380){
+        this.not.updateHeart(this.cards[0].id)
+        console.log('heart')
+      }else if(event.deltaX < -380){
+        this.not.updateCross(this.cards[0].id)
+        console.log('cross')
+      }
 
       this.choice(!!(event.deltaX>0), this.cards[0]);
      }

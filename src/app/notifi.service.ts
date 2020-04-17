@@ -102,7 +102,7 @@ export class NotifiService {
           menData.docs.forEach(female => {
             let fData = female.data();
             let fimg = null;
-            if(fData.img == undefined){
+            if(fData.img == undefined || fData.img == ''){
               fimg = 'assets/img/default-profile-picture1.jpg'
             }else{
               fimg = fData.img;
