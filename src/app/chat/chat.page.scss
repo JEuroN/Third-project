@@ -7,7 +7,7 @@
         color: white;
         height: 30px;
         width: 110px
-    
+        
     }
     #hov:hover{
         background: rgb(134, 8, 8)
@@ -21,6 +21,9 @@
     }
 
 }
+ion-content{
+    --background:  #FFFFFF;
+}
 ion-toolbar{
-    --background: rgb(195, 60, 60)
+   --background: #5285C6;
 }
