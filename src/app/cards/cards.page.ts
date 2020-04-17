@@ -50,7 +50,7 @@ export class CardsPage implements OnInit{
     this.not.clear();
     console.log('a')
   }
-
+  //Al iniciar llama al metodo para obtener las cartas
   ionViewDidEnter(){
     this.cards = this.not.getData();
 
@@ -91,6 +91,7 @@ export class CardsPage implements OnInit{
     this.heartVis = heart;
   }
 
+  //handleShift() al ser llamado actualiza la coleccion donde estan los usuarios que ya fueron encontrados, y luego limpia la carta que ha sido respondida
   handleShift(){
     if(this.election){
       this.not.updateHeart(this.cards[0].id)

@@ -17,7 +17,7 @@ export class NotifiService {
   constructor(private afs: AngularFirestore,
     private user: usersService) { }
 
-
+    //GetData() hace dos peticiones a la base de datos, la primera para obtener antiguos match del usuario, y la segunda para cargar los parametros que el usuario selecciono 
   getData(){
     const matches = this.afs.doc(`match/${this.user.getUID()}`).snapshotChanges();
     matches.subscribe((m: any) => {
@@ -38,7 +38,7 @@ export class NotifiService {
 
   }
 
-
+//updateCross() y updateHeart() actualiza en una coleccion a aquellos usuarios a quienes se les ha dado like o dislike por el usuario de momento
   updateCross(id: string){
     console.log(id, 'blocked')
     this.afs.doc(`match/${this.user.getUID()}`).set({
@@ -55,7 +55,7 @@ export class NotifiService {
     })
   }
 
-
+//CheckCards() luego de obtener los parametros de busqueda y cada vez que estos actualicen, se crean ods querys para buscar a los usuarios que aun no han sido encontrados
   checkCards(){
     console.log('init', this.config);
   
@@ -63,16 +63,21 @@ export class NotifiService {
         const menCards = this.afs.collection('users', ref => {
           return ref.where('sex', '==', 'Hombre').where('age','>=', this.config.mAge).where('age','<=', this.config.mxAge)
         })
+
+        //Uno para hombres y otro para mujeres
         const men = menCards.get();
         men.subscribe( (menData: any) => {
           menData.docs.forEach(male => {
             let aux = male.data();
             let img = null;
+
+            //Si el usuario no tiene foto se le coloca una por defecto
             if(aux.img == undefined){
               img = 'assets/img/default-profile-picture1.jpg'
             }else{
               img = aux.img;
             }
+            //Asi el usuario no se puede dar like o dislike a uno mismo, y no puede encontrarse con el mismo match dos veces
             if(male.id != this.user.getUID()){
               if(this.cross.includes(male.id) == false || this.heart.includes(male.id) == false){
                 this.cards.push({
@@ -87,7 +92,7 @@ export class NotifiService {
           })
         })
       }
-
+      //El mismo proceso pero esta vez para mujeres
       if(this.config.women == true){
         const womenCards = this.afs.collection('users', ref => {
           return ref.where('sex', '==', 'Mujer').where('age','>=', this.config.mAge).where('age','<=', this.config.mxAge)
@@ -118,13 +123,10 @@ export class NotifiService {
       }
 
   }
-
+  //Para evitar que se acumulen cartas repetidas, el limpia las cartas existentes cada vez que es llamado el metodo clear()
   clear(){
     this.cards = [];
   }
 
-  update(value, sign){
-    console.log()
-  }
 
 }
