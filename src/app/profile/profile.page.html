@@ -35,17 +35,17 @@
   <div id="container">
     <ion-item id="input-one">
       <ion-label>Name</ion-label>
-      <ion-input [(ngModel)]='name' ngDefaultControl></ion-input>
+      <ion-input (click)='erase($event)' placeholder={{name}} [(ngModel)]='name' ngDefaultControl></ion-input>
     </ion-item>
 
     <ion-item id="input-one">
       <ion-label>Age</ion-label>
-      <ion-input type='number' [(ngModel)]='age' ngDefaultControl></ion-input>
+      <ion-input (click)='erase($event)' type='number' placeholder={{age}} [(ngModel)]='age' ngDefaultControl></ion-input>
     </ion-item>
 
     <ion-item id="input-one">
       <ion-label>Sex</ion-label>
-      <ion-input placeholder='Loads' [(ngModel)]='sex' ngDefaultControl readonly='true'></ion-input>
+      <ion-input [(ngModel)]='sex' ngDefaultControl readonly='true'></ion-input>
     </ion-item>
 
     <ion-item>
@@ -53,7 +53,7 @@
     </ion-item>
 
     <ion-item id='input-one'>
-      <ion-textarea id='texta' rows='1' (input)='change()' [(ngModel)]='description'></ion-textarea>
+      <ion-textarea placeholder={{description}} id='texta' rows='1' (input)='change()' [(ngModel)]='description'></ion-textarea>
     </ion-item>
 
     <ion-item>
@@ -61,14 +61,14 @@
     </ion-item>
 
       <ion-item id="input-one" *ngFor="let entry of like">
-        <ion-input placeholder={{Likes}} [(ngModel)]="entry.cont"></ion-input>
+        <ion-input (click)='erase($event)' placeholder={{entry.cont}} [(ngModel)]="entry.cont"></ion-input>
       </ion-item>
     
     <ion-item>
       <ion-title style="text-align: center;"><b>Dislikes</b></ion-title>
     </ion-item>
       <ion-item id="input-one" *ngFor="let entry of dislike">
-        <ion-input placeholder={{Disikes}} [(ngModel)]="entry.cont"></ion-input>
+        <ion-input (click)='erase($event)' placeholder={{entry.cont}} [(ngModel)]="entry.cont"></ion-input>
       </ion-item>
    
     <ion-item >

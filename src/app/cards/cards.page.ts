@@ -95,7 +95,7 @@ export class CardsPage implements OnInit{
   handleShift(){
 
     if(this.election == true){
-      this.not.updateHeart(this.cards[0].id)
+      this.not.updateHeart(this.cards[0].id, this.cards[0].name)
       console.log('heart')
     }else if(this.election== false){
       this.not.updateCross(this.cards[0].id)
@@ -137,10 +137,10 @@ export class CardsPage implements OnInit{
     this.toggle(false,false);
     if(!this.cards.length){
       console.log(event.deltaX)
-      if(event.deltaX > 150){
-        this.not.updateHeart(this.cards[0].id)
+      if(event.deltaX > 30){
+        this.not.updateHeart(this.cards[0].id, this.cards[0].name)
         console.log('heart')
-      }else if(event.deltaX < -150){
+      }else if(event.deltaX < -30){
         this.not.updateCross(this.cards[0].id)
         console.log('cross')
       }
@@ -164,12 +164,12 @@ export class CardsPage implements OnInit{
 
       this.shiftReq = true;
 
-      if(event.deltaX > 380){
-        this.not.updateHeart(this.cards[0].id)
-        console.log('heart')
-      }else if(event.deltaX < -380){
-        this.not.updateCross(this.cards[0].id)
-        console.log('cross')
+      if(event.deltaX > 30){
+        this.not.updateHeart(this.cards[0].id);
+        console.log('heart');
+      }else if(event.deltaX < -30){
+        this.not.updateCross(this.cards[0].id);
+        console.log('cross');
       }
 
       this.choice(!!(event.deltaX>0), this.cards[0]);

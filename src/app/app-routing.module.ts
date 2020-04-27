@@ -28,6 +28,10 @@ const routes: Routes = [
     path: 'visit',
     loadChildren: () => import('./visit/visit.module').then( m => m.VisitPageModule)
   },
+  {
+    path: 'chats',
+    loadChildren: () => import('./chats/chats.module').then( m => m.ChatsPageModule)
+  },
 
 ];
 

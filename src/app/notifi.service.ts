@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { usersService } from './users.service';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,13 @@ export class NotifiService {
   cards = [];
   cross = [];
   heart = [];
+  getHearts;
+
   
 
   constructor(private afs: AngularFirestore,
-    private user: usersService) { }
+    private user: usersService,
+    private router: Router) { }
 
     //GetData() hace dos peticiones a la base de datos, la primera para obtener antiguos match del usuario, y la segunda para cargar los parametros que el usuario selecciono 
   getData(){
@@ -47,11 +50,24 @@ export class NotifiService {
     })
   }
 
-  updateHeart(id: string){
+  updateHeart(id: string, cName: string){
     console.log(id, 'blocked')
     this.afs.doc(`match/${this.user.getUID()}`).set({
       cross: [...this.cross],
       heart: [...this.heart, id]
+    })
+
+    this.getHearts = this.afs.collection('users').doc(id).valueChanges();
+    this.getHearts.subscribe((heartData: any) =>{
+      this.heart = heartData.payload.data().heart;
+      let newChat: string = id.substring(0,5) + this.user.getUID().substring(0,5);
+      this.afs.doc(`chats/${newChat}`).set({
+        msg:[]
+      })
+      if(this.heart.includes(this.user.getUID())){
+        this.router.navigate(['/chats', {msg: {cId: id, name: cName }}]);
+      }
+      this.getHearts.unsubscribe();
     })
   }
 

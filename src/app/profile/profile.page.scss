@@ -106,3 +106,11 @@ ion-title{
 ion-toolbar{
    --background: #5285C6;
 }
+
+ion-header{
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}

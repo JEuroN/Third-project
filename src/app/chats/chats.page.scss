@@ -1,0 +1,29 @@
+ion-footer{
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+
+    ion-icon{
+        color: blue;
+        font-size: 40px;
+    }
+    p{
+        margin-left: 10px;
+    }
+}
+
+ion-header{
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    height: 45px;
+
+    ion-icon{
+        color: blue;
+        font-size: 40px;
+    }
+}   

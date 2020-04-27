@@ -66,9 +66,6 @@ export class ProfilePage implements OnInit {
       }
     })
 
-   
-    
-
   }
   
   ionViewWillEnter(){
@@ -198,6 +195,10 @@ export class ProfilePage implements OnInit {
     });
   }
   
+  erase(e){
+    e.target.value = '';
+  }
+
   logout(){
     this.router.navigate(['home']);
   }

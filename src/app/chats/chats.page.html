@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-item>
+    <ion-icon name="arrow-back-outline" routerLink='/chat'></ion-icon>
+    <p>{{username}}</p>
+  </ion-item>
+</ion-header>
+
+<ion-content>
+  <ion-item lines='no-lines' *ngFor="let item of msgs">
+    <p>{{item.name}}}</p>
+    <p>{{item.cont}}</p>
+  </ion-item>
+
+</ion-content>
+
+<ion-footer>
+  <ion-item>
+    <ion-textarea placeholder={{description}} id='texta' rows='1' (input)='change()' [(ngModel)]='sendMsg'></ion-textarea>
+    <ion-icon name='arrow-forward-outline' (click)='send()'></ion-icon>
+  </ion-item>
+</ion-footer>
