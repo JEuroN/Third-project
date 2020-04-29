@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { usersService } from '../users.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx'
 import { NotifiService } from '../notifi.service';
@@ -18,7 +18,7 @@ export class NotificationsPage implements OnInit {
     {val: 'Men', isChecked: false, id: 0},
     {val: 'Women', isChecked: false, id: 1}
   ]
-
+  checker:number = 1;
   mAge: number = 18;
   mxAge: number = 60;
   constructor(
@@ -26,7 +26,8 @@ export class NotificationsPage implements OnInit {
     public afs: AngularFirestore,
     public alert: AlertController,
     public notif: LocalNotifications,
-    private not: NotifiService
+    private not: NotifiService,
+    public loadingController: LoadingController
   ) { }
 
   ngOnInit(){
@@ -64,6 +65,8 @@ export class NotificationsPage implements OnInit {
   }
 
   setParam(){
+    if(this.checker = 1){
+      this.checker--;
     let flag = 0;
     for(let t=0; t<this.form.length; t++){
       if(this.form[t].isChecked == false)
@@ -72,12 +75,18 @@ export class NotificationsPage implements OnInit {
     if(flag >= this.form.length){
       this.showAlert('Error', 'Por favor, ingrese al menos un genero')
     }else{
+      this.presentLoading();
       this.afs.doc(`matConfig/${this.users.getUID()}`).set({
         men: this.form[0].isChecked,
         women: this.form[1].isChecked,
         mAge: this.mAge,
         mxAge: this.mxAge
       });
+      console.log("Sucess");
+      setTimeout(()=>{
+        this.checker = 1;
+      }, 2000);
+    }
     }
   }
 
@@ -89,6 +98,18 @@ export class NotificationsPage implements OnInit {
     })
 
     await alert.present()
+  }
+
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 
 }

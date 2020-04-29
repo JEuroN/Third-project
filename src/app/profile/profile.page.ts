@@ -6,6 +6,7 @@ import { AlertController } from '@ionic/angular';
 import { Camera,CameraOptions } from '@ionic-native/camera/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx'
 import { NotifiService } from '../notifi.service';
+import { LoadingController } from '@ionic/angular';
 
 
 
@@ -42,7 +43,8 @@ export class ProfilePage implements OnInit {
     public router: Router,
     public notif: LocalNotifications,
     public camera: Camera,
-    public not: NotifiService
+    public not: NotifiService,
+    public loadingController: LoadingController
     ) { }
 
   ngOnInit() {
@@ -102,7 +104,7 @@ export class ProfilePage implements OnInit {
     text.style.height = scroll + 'px';
   }
     
-  edit(){
+  async edit(){
     //Hace el edit de los datos del user
     if(this.name == '')
       this.showAlert('Error!', 'Wrong name');
@@ -111,6 +113,7 @@ export class ProfilePage implements OnInit {
     }else if(this.age > 60 || this.age < 18){
       this.showAlert('Error!','Age range is 18-60');
     }else{
+      this.presentLoading();
       const newData = {
         name: this.name,
         age: this.age,
@@ -124,7 +127,8 @@ export class ProfilePage implements OnInit {
         dislike3: this.dislike[2].cont
       }
   
-      this.afs.collection('users').doc(this.users.getUID()).set(newData);
+      await this.afs.collection('users').doc(this.users.getUID()).set(newData);
+      console.log("Sucess");
     }
   }
 
@@ -151,12 +155,14 @@ export class ProfilePage implements OnInit {
       targetWidth: 300
     }
     this.camera.getPicture(options)
-    .then((imageData) => {
+    .then(async (imageData) => {
+      this.presentLoading();
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.img = base64Image;
-      this.afs.doc(`Pics/${this.users.getUID()}`).set({
+      await this.afs.doc(`Pics/${this.users.getUID()}`).set({
         propic: this.img
       });
+      console.log("Sucess");
     }, (err) => {
       console.log(err);
     });
@@ -174,10 +180,11 @@ export class ProfilePage implements OnInit {
       targetWidth: 300
     }
     this.camera.getPicture(options)
-    .then((imageData) => {
+    .then(async (imageData) => {
+      this.presentLoading();
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.img = base64Image;
-      this.afs.doc(`users/${this.users.getUID()}`).set({
+      await this.afs.doc(`users/${this.users.getUID()}`).set({
           name: this.name,
           age: this.age,
           sex: this.sex,
@@ -190,6 +197,7 @@ export class ProfilePage implements OnInit {
           dislike3: this.dislike[2].cont,
           img: this.img
       });
+      console.log("Sucess");
     }, (err) => {
       console.log(err);
     });
@@ -202,5 +210,15 @@ export class ProfilePage implements OnInit {
   logout(){
     this.router.navigate(['home']);
   }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+      duration: 2000
+    });
+    await loading.present();
+  }
+
+
 }
 

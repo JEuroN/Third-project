@@ -13,11 +13,17 @@ import { Router } from '@angular/router';
 export class ChatPage implements OnInit {
 
   value: boolean = true;
+  chats = [
+    
+  ]
+ 
   
   constructor(
     private notif: LocalNotifications,
     private not: NotifiService,
-    private router: Router
+    private router: Router,
+    private user: usersService,
+    private afs: AngularFirestore
   ) { }
 
   ngOnInit(){
@@ -30,7 +36,8 @@ export class ChatPage implements OnInit {
     this.not.clear();
   }
 
-  ionViewWillEnter(){
+  async ionViewWillEnter(){
+    this.chats = [];
     let check = this.not.getData();
     if(check.length > 0){
       this.value = false;
@@ -39,10 +46,33 @@ export class ChatPage implements OnInit {
         text: 'You have a Match!'
       })
     }
+
+
+    const seeChats = await this.afs.doc(`chat/${this.user.getUID()}`).snapshotChanges();
+    seeChats.subscribe( (cChats: any) =>{
+      
+      const chatEntries = cChats.payload.data().chats;
+      console.log(chatEntries);
+      chatEntries.forEach(entry => {
+        console.log(entry);
+        
+        this.chats.push({
+          cId: entry.cId,
+          cName: entry.name
+        })
+      });
+    })
+
+   
+
+    
   }
 
-  select(id){
-    
+
+
+
+  select(id, name){
+    this.router.navigate(['chats', {cId: id, cName: name}])
   }
 
 }

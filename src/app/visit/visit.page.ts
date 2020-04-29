@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Router, ActivatedRoute } from '@angular/router';
+import { usersService } from '../users.service';
 
 @Component({
   selector: 'app-visit',
@@ -16,6 +17,8 @@ export class VisitPage implements OnInit {
   age: number = null;
   sex: string = null;
   description: string = null;
+  follows = [];
+  follow: boolean = false;
   like = [
     {cont: ''},
     {cont: ''},
@@ -34,33 +37,49 @@ constructor(
   public alert: AlertController,
   public afs: AngularFirestore,
   public router: Router,
-  public route: ActivatedRoute
+  public route: ActivatedRoute,
+  public user: usersService
   ) { }
 
 ngOnInit() {
 
   this.route.params.subscribe(params => {
     this.visitId = params['msg']
+
   })
 
 
   const data = this.afs.collection('users').doc(this.visitId).snapshotChanges();
   data.subscribe((deta: any) =>{
     let nDeta = deta.payload.data();
+    console.log(nDeta);
     this.name = nDeta.name;
     this.age = nDeta.age;
     this.sex = nDeta.sex ? ('Masculino') : ('Femenino');
     this.description = nDeta.description;
-    this.like[0].cont = nDeta.like1;
+    this.like[0].cont = nDeta.Like1;
     this.like[1].cont = nDeta.like2;
     this.like[2].cont = nDeta.like3;
-    this.dislike[0].cont = nDeta.dislike1;
-    this.dislike[1].cont = nDeta.dislike2;
-    this.dislike[2].cont = nDeta.dislike3;
-    if(nDeta.img != undefined){
+    this.dislike[0].cont = nDeta.hate1;
+    this.dislike[1].cont = nDeta.hate2;
+    this.dislike[2].cont = nDeta.hate3;
+    if(nDeta.img != undefined || nDeta.img != '' || nDeta.img != null){
       this.img = nDeta.img;
     }else{
       this.img = 'assets/img/default-profile-picture1.jpg'
+    }
+  })
+
+  const follower = this.afs.doc(`follow/${this.user.getUID()}`).snapshotChanges();
+  follower.subscribe((follows: any) =>{
+    console.log(follows);
+    this.follows = follows.payload.data().follows;
+
+
+    if(this.follow != undefined && this.follows.includes(this.visitId) == true){
+      this.follow = true;
+    }else{
+      this.follow = false;
     }
   })
 
@@ -94,5 +113,11 @@ async showAlert(header: string, message: string){
   })
 
   await alert.present()
+}
+
+setFollow(){
+  this.afs.doc(`follow/${this.user.getUID()}`).set({
+    follows: [...this.follows, this.visitId]
+  })
 }
 }

@@ -15,7 +15,9 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-card *ngFor="let item of chats" (click)='select(item.cId, item.cName)' >
+    <p>{{item.cName}}</p>
+  </ion-card>
 </ion-content>
 
 <ng-template #notification>

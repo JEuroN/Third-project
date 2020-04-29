@@ -14,10 +14,11 @@
     width:200px;
     margin:auto;
     margin-top: 2vh;
+    --background: #5285C6;
 }
 
 #input-one{
-    --background:  rgb(255, 87, 87);
+    --background: #5285C6;
     --padding: 5;
     --placeholder-color: white;
 }
@@ -35,7 +36,7 @@
 
 ion-content{
 
-    --background:  rgb(195, 60, 60);
+    --background:  #FFFFFF;
 }
 
 ion-icon{
@@ -60,27 +61,34 @@ ion-icon{
 }
 
 ion-item{
-    --background: rgb(195, 60, 60);
+    --background: #5285C6;
+    
 }
 
+#title-color{
+    color:"black";
+}
 ion-title{
-    background: rgb(195, 60, 60);
+    color: white;
+  --background: #5285C6;
 }
 
 #buttons{
     margin: 0 auto;
+    --background: #5285C6;
 }
 
 #tool{
-    
+    --background: #5285C6;
     margin: 0 auto;
     height: 50px;
+    --background: #5285C6;
     ion-button{
         margin: 0 auto;
         color: white;
         height: 30px;
-        width: 110px
-    
+        width: 110px;
+        --background: #5285C6;
     }
     #hov:hover{
         background: rgb(134, 8, 8)
@@ -96,5 +104,13 @@ ion-title{
 }
 
 ion-toolbar{
-    --background: rgb(195, 60, 60)
+   --background: #5285C6;
+}
+
+ion-header{
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
 }

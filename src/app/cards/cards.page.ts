@@ -23,6 +23,7 @@ export class CardsPage implements OnInit{
   transOn: boolean;
   heartVis: boolean;
   crossVis: boolean;
+  checker: number = 1;
 
 
 
@@ -95,11 +96,23 @@ export class CardsPage implements OnInit{
   handleShift(){
 
     if(this.election == true){
+      if(this.checker > 0){
       this.not.updateHeart(this.cards[0].id, this.cards[0].name)
       console.log('heart')
+      this.checker--;
+      setTimeout(()=>{
+        this.checker = 1;
+      }, 1500);
+      }
     }else if(this.election== false){
+      if(this.checker > 0){
       this.not.updateCross(this.cards[0].id)
       console.log('cross')
+      this.checker--;
+      setTimeout(()=>{
+        this.checker = 1;
+      }, 1500);
+      }
     }
 
     this.transOn = false;
@@ -139,10 +152,8 @@ export class CardsPage implements OnInit{
       console.log(event.deltaX)
       if(event.deltaX > 30){
         this.not.updateHeart(this.cards[0].id, this.cards[0].name)
-        console.log('heart')
       }else if(event.deltaX < -30){
         this.not.updateCross(this.cards[0].id)
-        console.log('cross')
       }
       return;
     } 
@@ -165,11 +176,9 @@ export class CardsPage implements OnInit{
       this.shiftReq = true;
 
       if(event.deltaX > 30){
-        this.not.updateHeart(this.cards[0].id);
-        console.log('heart');
+        this.not.updateHeart(this.cards[0].id, this.cards[0].name);
       }else if(event.deltaX < -30){
         this.not.updateCross(this.cards[0].id);
-        console.log('cross');
       }
 
       this.choice(!!(event.deltaX>0), this.cards[0]);

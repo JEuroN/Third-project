@@ -1,14 +1,20 @@
 <ion-header>
   <ion-item>
     <ion-icon name="arrow-back-outline" routerLink='/chat'></ion-icon>
-    <p>{{username}}</p>
+    <p (click)='visit()'>{{username}}</p>
+    <ion-icon id="buttons" name="camera-outline" (click)='takeImg()'></ion-icon>
+    <ion-icon id="buttons" name="image-outline" (click)='selectImg()'></ion-icon>
+    <ion-icon ></ion-icon>
   </ion-item>
 </ion-header>
 
 <ion-content>
   <ion-item lines='no-lines' *ngFor="let item of msgs">
-    <p>{{item.name}}}</p>
-    <p>{{item.cont}}</p>
+    <ion-item [ngStyle]="{'background': item.name == ownName ?  'blue' : 'gray'}">
+      <p>{{item.name}}</p>
+      <p *ngIf="item.type==true">{{item.cont}}</p>
+      <ion-img *ngIf="item.type==false" [src]='item.cont'></ion-img>
+    </ion-item>
   </ion-item>
 
 </ion-content>
@@ -19,3 +25,4 @@
     <ion-icon name='arrow-forward-outline' (click)='send()'></ion-icon>
   </ion-item>
 </ion-footer>
+

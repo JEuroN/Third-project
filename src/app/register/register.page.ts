@@ -59,7 +59,9 @@ export class RegisterPage implements OnInit {
         hate3: 'Please write something you dislike',
         img: ''
       })
-
+      this.afstore.doc(`follow/${res.user.uid}`).set({
+        follows: []
+      })
       this.afstore.doc(`match/${res.user.uid}`).set({
         cross: [],
         heart: []

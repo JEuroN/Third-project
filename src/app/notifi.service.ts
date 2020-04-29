@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { usersService } from './users.service';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -18,17 +19,21 @@ export class NotifiService {
 
   constructor(private afs: AngularFirestore,
     private user: usersService,
-    private router: Router) { }
+    private router: Router, 
+    private loadingController: LoadingController) { }
 
     //GetData() hace dos peticiones a la base de datos, la primera para obtener antiguos match del usuario, y la segunda para cargar los parametros que el usuario selecciono 
   getData(){
-    const matches = this.afs.doc(`match/${this.user.getUID()}`).snapshotChanges();
+    this.cross = [];
+    this.heart = [];
+    let matches = this.afs.doc(`match/${this.user.getUID()}`).snapshotChanges();
     matches.subscribe((m: any) => {
       this.cross = m.payload.data().cross;
       this.heart = m.payload.data().heart;
+      
     })
-
-
+    
+    this.config = [];
     const upd = this.afs.doc(`matConfig/${this.user.getUID()}`).snapshotChanges();
     upd.subscribe((n: any) => {
       this.config = n.payload.data();
@@ -42,34 +47,51 @@ export class NotifiService {
   }
 
 //updateCross() y updateHeart() actualiza en una coleccion a aquellos usuarios a quienes se les ha dado like o dislike por el usuario de momento
-  updateCross(id: string){
+  async updateCross(id: string){
     console.log(id, 'blocked')
-    this.afs.doc(`match/${this.user.getUID()}`).set({
+    await this.afs.doc(`match/${this.user.getUID()}`).set({
       cross: [...this.cross, id],
       heart: [...this.heart]
     })
+    console.log('Crossed')
   }
 
-  updateHeart(id: string, cName: string){
-    console.log(id, 'blocked')
-    this.afs.doc(`match/${this.user.getUID()}`).set({
+ async updateHeart(id: string, cName: string){
+    console.log(id, 'hearted', this.user.getUID())
+    await this.afs.doc(`match/${this.user.getUID()}`).set({
       cross: [...this.cross],
       heart: [...this.heart, id]
     })
+    console.log("Saved")
+    this.getHearts = this.afs.collection('match').doc(id).valueChanges();
+    this.getHearts.subscribe(async (hData: any) =>{
+      if(hData != undefined && hData.heart.includes(this.user.getUID())){
+      console.log("id hearts", id, this.user.getUID());
+      console.log(hData);
+      let oldChats = await this.getOldChats(this.user.getUID());
+      let otherChats = await this.getOldChats(id);
+      let sortArray = id.substring(0,5) + this.user.getUID().substring(0,5);
+      sortArray = this.sort(sortArray);
+      let newChat: string = sortArray;
+      console.log(newChat);
 
-    this.getHearts = this.afs.collection('users').doc(id).valueChanges();
-    this.getHearts.subscribe((heartData: any) =>{
-      this.heart = heartData.payload.data().heart;
-      let newChat: string = id.substring(0,5) + this.user.getUID().substring(0,5);
-      this.afs.doc(`chats/${newChat}`).set({
+      await this.setNewChats(this.user.getUID(), id, oldChats, cName);
+      await this.setNewChats(id, this.user.getUID(), otherChats, this.user.getUser());
+     
+      console.log('We did it')
+      await this.afs.doc(`chats/${newChat}`).set({
         msg:[]
       })
-      if(this.heart.includes(this.user.getUID())){
-        this.router.navigate(['/chats', {msg: {cId: id, name: cName }}]);
+        
+        this.router.navigate(['/chats', {cId: id, name: cName }]);
       }
-      this.getHearts.unsubscribe();
+    
     })
   }
+
+  sort(text) {
+    return text.split('').sort().join('');
+  };
 
 //CheckCards() luego de obtener los parametros de busqueda y cada vez que estos actualicen, se crean ods querys para buscar a los usuarios que aun no han sido encontrados
   checkCards(){
@@ -144,5 +166,28 @@ export class NotifiService {
     this.cards = [];
   }
 
+  getOldChats(uid){
+    let oldChats;
+    this.afs.doc(`chat/${uid}`).snapshotChanges().subscribe((existentChats: any) =>{
+      oldChats = existentChats.payload.data().chats
+    })
+
+    return oldChats;
+    }
+
+    async setNewChats(id,oid, oldChats, cName){
+      console.log(id, oldChats, cName)
+      if(oldChats != undefined){
+        await this.afs.doc(`chat/${id}`).set({
+        chats: [...oldChats, {cId: oid, 
+        name: cName}]
+      })
+      }else(
+        await this.afs.doc(`chat/${id}`).set({
+          chats: [{cId: oid, 
+          name: cName}]
+        })
+      )
+    }
 
 }
