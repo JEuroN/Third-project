@@ -1,0 +1,41 @@
+#tool{
+    
+    margin: 0 auto;
+    height: 50px;
+    ion-button{
+        margin: 0 auto;
+        color: white;
+        height: 30px;
+        width: 110px
+        
+    }
+    #hov:hover{
+        background: rgb(134, 8, 8)
+    }
+    #icon{
+        width: 60px;
+    }
+
+    ion-icon{
+        font-size: 30px;
+    }
+
+}
+ion-content{
+    --background:  #FFFFFF;
+
+    ion-card{
+        background: #5285C6;
+        height: 60px;
+        
+        p{
+            color: white;
+            font-size: 35px;
+            margin: 0 auto;
+            text-align: center;
+        }
+    }
+}
+ion-toolbar{
+   --background: #5285C6;
+}

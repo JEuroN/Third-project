@@ -116,8 +116,16 @@ async showAlert(header: string, message: string){
 }
 
 setFollow(){
-  this.afs.doc(`follow/${this.user.getUID()}`).set({
+  if(this.follows.includes(this.visitId)){
+    let index = this.follows.indexOf(this.visitId);
+    this.follows.splice(index, 1);
+    this.afs.doc(`follow/${this.user.getUID()}`).set({
+      follows: [...this.follows]
+  })
+  }else{
+    this.afs.doc(`follow/${this.user.getUID()}`).set({
     follows: [...this.follows, this.visitId]
   })
+  }
 }
 }

@@ -85,21 +85,26 @@ export class ChatsPage implements OnInit {
   }
 
   async send(){
-    this.msgs.push({
-      name: this.user.getUser(),
-      cont: this.sendMsg,
-      type: true
-    })
-    await this.afs.doc(`chats/${this.cId}`).set({
-      msg: [...this.msgs]
-    })
-    console.log('First send');
-    
-    await this.afs.doc(`chats/${this.user.getUID()}`).set({
-      msg: [...this.msgs]
-    })
-    console.log("Second send")
-    this.sendMsg = '';
+    if(this.sendMsg == '' || this.sendMsg == null)
+    return null
+    else{
+      this.msgs.push({
+        name: this.user.getUser(),
+        cont: this.sendMsg,
+        type: true
+      })
+      await this.afs.doc(`chats/${this.cId}`).set({
+        msg: [...this.msgs]
+      })
+      console.log('First send');
+
+      await this.afs.doc(`chats/${this.user.getUID()}`).set({
+        msg: [...this.msgs]
+      })
+      console.log("Second send")
+      this.sendMsg = '';
+      }
+  
   }
 
 
