@@ -4,7 +4,7 @@
     height: 50px;
     ion-button{
         margin: 0 auto;
-        color: white;
+        color: #FFFFFF;
         height: 30px;
         width: 110px;
         --background: #5285C6;
@@ -21,6 +21,10 @@
     }
 
 
+}
+
+#text1{
+    color: white;
 }
 
 ion-content{
@@ -62,7 +66,7 @@ ion-toolbar{
     p{
     margin: 0 auto;
     font-size: larger;
-    color: black;
+    color: #5285C6;
   }
 
 
@@ -117,3 +121,16 @@ ion-toolbar{
     }
 }
 
+#dislikeb{
+    height: 50%;
+    width: 20%;
+    display: inline-block;
+}
+
+
+#likeb{
+    display: inline-block;
+    height: 50%;
+    width: 20%;
+
+}

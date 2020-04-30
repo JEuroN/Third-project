@@ -21,11 +21,25 @@
     }
 
 }
+#buttons{
+    height: 90%;
+    width: 90%;
+    display: inline-block;
+    
+}
+
+
+ion-item{
+    --background: #5285C6;
+    color: white;
+}
+
+
 ion-content{
-    --background:  #FFFFFF;
+    --background: #5285C6 ; // blue
 
     ion-card{
-        background: #5285C6;
+        background: #FFFFFF; //white
         height: 60px;
         
         p{

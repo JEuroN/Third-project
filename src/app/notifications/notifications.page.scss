@@ -4,14 +4,12 @@
     height: 50px;
     ion-button{
         margin: 0 auto;
-        color: white;
+        color: #FFFFFF; //
         height: 30px;
         width: 90px
     
     }
-    #hov:hover{
-        background: rgb(134, 8, 8)
-    }
+   
     #icon{
         width: 60px;
     }
@@ -25,24 +23,25 @@
 
 ion-range{
     --height: 30px;
-    --background: black;
+    --background: #FFFFFF;
 }
 
 ion-toolbar{
-    --background: #5285C6;
+    color: #FFFFFF;
+    --background: #5285C6; //white
 }
 
 #ion-but{
     margin: 0 auto;
-    color: white;
+    color: #5285C6;
     height: 40px;
     font-size: 15px;
-    --background: #5285C6;
+    --background: #FFFFFF; //white
 }
 
 ion-item{
-    --background: #5285C6;
-    color: black;
+    --background: #5285C6; //whte
+    color: #FFFFFF;
     
 }
 
@@ -50,9 +49,9 @@ ion-content{
     p{
     margin: 0 auto;
     font-size: larger;
-    color: black;
+    color: #FFFFFF;
   }
-    --background:  #FFFFFF;
+    --background:  #5285C6; //blue
     --border-style: unset!important;
-    color: black;
+    color: #FFFFFF;
 }

@@ -2,9 +2,9 @@
   <ion-toolbar id='tool'>
     <ion-buttons id='tool'>
       <ion-button id='icon' routerLink='/notifications' >
-        <ion-icon name='options-outline' style='color: white;'></ion-icon>
+        <ion-icon name='options-outline' style='color: #FFFFFF;'></ion-icon>
       </ion-button>
-      <ion-button id='hov' [ngStyle]="{'color': value ? 'white' : 'gold'}" routerLink='/chat'>
+      <ion-button id='hov' [ngStyle]="{'color': value ? '#FFFFFF' : 'gold'}" routerLink='/chat'>
         Chats
       </ion-button>
       <ion-button id='hov' routerLink='/profile'>
@@ -44,9 +44,9 @@
 
   <div class='buttons'>
 
-    <button (click)='clickBtn($event, false)'><ion-icon name='heart-dislike-outline' style="color: rgb(21, 21, 151);"></ion-icon></button>
+    <button id="dislikeb" (click)='clickBtn($event, false)'><ion-icon name='heart-dislike-outline' style="color: rgb(21, 21, 151);"></ion-icon></button>
 
-    <button (click)='clickBtn($event, true)'><ion-icon name='heart-outline' style="color: rgb(251, 61, 86);"></ion-icon></button>
+    <button id="likeb" (click)='clickBtn($event, true)'><ion-icon name='heart-outline' style="color: rgb(251, 61, 86);"></ion-icon></button>
 
   </div>
 
@@ -58,9 +58,9 @@
 
 <ng-template #nomatch>
   <div class="card">
-    <p>Sorry<br/> it appears that you <br/> dont have a match yet :c</p>
-    <p>Mardito feo bobo</p>
-    <p>Remember to select your search parameters <br/> in the button settings</p>
+    <p id="text1">Sorry, it appears that you <br/> dont have a match yet :c</p>
+    <p id="text1">Mardito feo bobo</p>
+    <p id="text1">Remember to select your search parameters in the button settings.</p>
   </div>
 </ng-template>
 

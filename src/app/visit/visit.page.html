@@ -22,8 +22,8 @@
   <ion-item>
     <p *ngIf="follow == true">Following</p>
     <p *ngIf="follow == false">Not following</p>
-    <ion-button *ngIf="follow == false" (click)='setFollow()'><ion-icon  name='heart-outline' style="color: rgb(251, 61, 86);"></ion-icon></ion-button>
-    <ion-button *ngIf="follow == true" (click)='setFollow()'><ion-icon name='heart-dislike-outline' style="color: rgb(21, 21, 151);"></ion-icon></ion-button>
+    <ion-button id="likeheart"  *ngIf="follow == false" (click)='setFollow()'><ion-icon  name='heart-outline' style="color: rgb(251, 61, 86);"></ion-icon></ion-button>
+    <ion-button id="dislikeheart" *ngIf="follow == true" (click)='setFollow()'><ion-icon name='heart-dislike-outline' style="color: rgb(21, 21, 151);"></ion-icon></ion-button>
   </ion-item>
 
   <ion-item id="profilepic">

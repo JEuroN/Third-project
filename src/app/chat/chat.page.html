@@ -16,8 +16,8 @@
 
 <ion-content>
 
-  <ion-item routerLink='/states'>
-      <p>States <ion-icon name='arrow-forward-outline'></ion-icon></p>
+  <ion-item id="gostates" routerLink='/states'>
+      <p>States <ion-icon  name='arrow-forward-outline'></ion-icon></p>
   </ion-item>
 
   <ion-card *ngFor="let item of chats" (click)='select(item.cId, item.cName)' >

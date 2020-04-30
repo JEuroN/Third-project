@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar id='tool'>
     <ion-buttons id='tool'>
-      <ion-button id='icon' [ngStyle]="{'color': value ? 'white' : 'gold'}" routerLink='/cards' >
+      <ion-button id='icon' [ngStyle]="{'color': value ? '#FFFFFF' : 'gold'}" routerLink='/cards' >
         Match
       </ion-button>
       <ion-button id='hov' routerLink='/chat'>
@@ -19,13 +19,13 @@
 
 <ion-content lines='none'>
 
-  <p style="margin: 5; position: relative; text-align: center; " >Please <br /> Select what are you looking to meet</p>
+  <p style="margin: 5; position: relative; text-align: center; " >Please <br /> Select what are you looking to meet:</p>
   <ion-item id="input-one" *ngFor="let entry of form">
     <ion-label>{{entry.val}}</ion-label>
     <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
   </ion-item>
     
-    <p style="margin: 5; position: relative; text-align: center; ">Please select the age range</p>
+    <p style="margin: 5; position: relative; text-align: center; ">Please select the age range:</p>
     <ion-item  lines='none'>
       <p>Set minimal age</p>
       <ion-range style='margin-left: 9px' min='18' max='60' color='dark' (ionChange)="setMin($event)"></ion-range>

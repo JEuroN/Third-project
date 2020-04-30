@@ -4,7 +4,7 @@
     height: 50px;
     ion-button{
         margin: 0 auto;
-        color: white;
+        color: #FFFFFF;
         height: 30px;
         width: 110px
         
@@ -22,14 +22,14 @@
 
 }
 ion-content{
-    --background:  #FFFFFF;
+    --background:  #5285C6 ; //blue
 
     ion-card{
-        background: #5285C6;
+        background: #FFFFFF; //white
         height: 60px;
         
         p{
-            color: white;
+            color: #5285C6;
             font-size: 35px;
             margin: 0 auto;
             text-align: center;
@@ -37,5 +37,13 @@ ion-content{
     }
 }
 ion-toolbar{
-   --background: #5285C6;
+   --background: #5285C6; 
+}
+
+#gostates{
+    --background: #5285C6; 
+    p{
+        font-size: 25px;
+        
+    }
 }

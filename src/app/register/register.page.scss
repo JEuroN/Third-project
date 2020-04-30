@@ -8,42 +8,40 @@ ion-label {
     }
 }
 #regi-button{
-    color:white;
-    --background: #5285C6;
+    color:#5285C6;
+    --background: #FFFFFF; //white
 }
 #input-one{
-    color:white;
-    --background: #5285C6;
+    --background: #FFFFFF;
+  color: #5285C6; //white
   }
 #register-bar{
 
-    --background:  #FFFFFF;
+    --background:  #5285C6; //blue
 }
 ion-content{
-    --background: #FFFFFF;
+    --background: #5285C6; //blue
 }
 
 ion-list{
-    background: #FFFFFF;
+    background: #5285C6; //blue
 }
 
-ion-input{
-    color: black;;
-}
+
 
 ion-label{
-    color: black;
+    color: #5285C6;
 }
 
 b{
-    color: black;
+    color: #FFFFFF;
 }
 
 h2{
-    color: black;
+    color: #FFFFFF;
 }
 
 ion-button{
-    color: #5285C6;
-    --background: rgb(216, 84, 84);
+    color: #FFFFFF;
+    --background:#5285C6;
 }

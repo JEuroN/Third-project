@@ -115,7 +115,7 @@ async showAlert(header: string, message: string){
 }
 
 setFollow(){
-  if(this.follows != undefined || this.follows.includes(this.visitId)){
+  if(this.follows != undefined && this.follows.includes(this.visitId)){
     let index = this.follows.indexOf(this.visitId);
     this.follows.splice(index, 1);
     this.afs.doc(`follow/${this.user.getUID()}`).set({
