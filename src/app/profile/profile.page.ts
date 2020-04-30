@@ -61,7 +61,7 @@ export class ProfilePage implements OnInit {
       this.dislike[0].cont = nDeta.dislike1;
       this.dislike[1].cont = nDeta.dislike2;
       this.dislike[2].cont = nDeta.dislike3;
-      if(nDeta.img != undefined){
+      if(nDeta.img != undefined || nDeta.img != null){
         this.img = nDeta.img;
       }else{
         this.img = 'assets/img/default-profile-picture1.jpg'
@@ -124,7 +124,8 @@ export class ProfilePage implements OnInit {
         like3: this.like[2].cont,
         dislike1: this.dislike[0].cont,
         dislike2: this.dislike[1].cont,
-        dislike3: this.dislike[2].cont
+        dislike3: this.dislike[2].cont,
+        img: this.img
       }
   
       await this.afs.collection('users').doc(this.users.getUID()).set(newData);
@@ -159,8 +160,18 @@ export class ProfilePage implements OnInit {
       this.presentLoading();
       let base64Image = 'data:image/jpeg;base64,' + imageData;
       this.img = base64Image;
-      await this.afs.doc(`Pics/${this.users.getUID()}`).set({
-        propic: this.img
+      await this.afs.doc(`users/${this.users.getUID()}`).set({
+        name: this.name,
+        age: this.age,
+        sex: this.sex,
+        description: this.description,
+        like1: this.like[0].cont,
+        like2: this.like[1].cont,
+        like3: this.like[2].cont,
+        dislike1: this.dislike[0].cont,
+        dislike2: this.dislike[1].cont,
+        dislike3: this.dislike[2].cont,
+        img: this.img
       });
       console.log("Sucess");
     }, (err) => {

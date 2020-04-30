@@ -33,8 +33,10 @@ export class HomePage {
 
   }
 
-  ionViewDidEnter(){
+  ionViewWillEnter(){
     this.users.flush();
+    this.username = '';
+    this.password = ''
   }
 
 //Verifica que todos los campos tengan value, de tenerlo, te logea

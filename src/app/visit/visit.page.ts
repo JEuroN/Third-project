@@ -72,7 +72,6 @@ ngOnInit() {
 
   const follower = this.afs.doc(`follow/${this.user.getUID()}`).snapshotChanges();
   follower.subscribe((follows: any) =>{
-    console.log(follows);
     this.follows = follows.payload.data().follows;
 
 
@@ -116,7 +115,7 @@ async showAlert(header: string, message: string){
 }
 
 setFollow(){
-  if(this.follows.includes(this.visitId)){
+  if(this.follows != undefined || this.follows.includes(this.visitId)){
     let index = this.follows.indexOf(this.visitId);
     this.follows.splice(index, 1);
     this.afs.doc(`follow/${this.user.getUID()}`).set({

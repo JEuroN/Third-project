@@ -51,13 +51,13 @@ export class RegisterPage implements OnInit {
         sex: gay,
         isAdmin: 'false',
         description: 'You have no data, please write something and click update below to add the information that others wil see',
-        Like1: 'Please write something you like',
+        like1: 'Please write something you like',
         like2: 'Please write something you like',
         like3: 'Please write something you like',
         hate1: 'Please write something you dislike',
         hate2: 'Please write something you dislike',
         hate3: 'Please write something you dislike',
-        img: ''
+        img: null
       })
       this.afstore.doc(`follow/${res.user.uid}`).set({
         follows: []

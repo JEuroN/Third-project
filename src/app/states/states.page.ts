@@ -44,24 +44,21 @@ export class StatesPage implements OnInit {
 
     const follower = this.afs.doc(`follow/${this.user.getUID()}`).snapshotChanges();
     follower.subscribe((follows: any) =>{
-    this.follows = follows.payload.data().follows;
+      this.follows = follows.payload.data().follows;
+      console.log(this.follows);
+      this.getStates(this.follows);
 
+      
     })
 
     this.afs.doc(`state/${this.user.getUID()}`).snapshotChanges().subscribe((state: any) =>{
-      this.myStates = [...state.payload.data().states];
-      this.states = [...this.myStates];
+      if(state != undefined){
+        console.log(state.payload.data().states)
+        this.myStates = [...state.payload.data().states];
+        this.states = [...this.states, ...state.payload.data().states];      
+        
+      }
     })
-
-    for(let i = 0; i < this.follows.length; i++){
-      let state = this.afs.doc(`state/${this.follows[i]}`).snapshotChanges().subscribe((states: any) =>{
-        this.states = [...this.states,...states.payload.data().states]
-
-      })
-
-      return state.unsubscribe();
-    }
-
   }
 
   async send(){
@@ -81,7 +78,17 @@ export class StatesPage implements OnInit {
       this.sendMsg = '';
     }
   }
-
+  
+  getStates(uid){
+    uid.forEach((id)=>{
+      let state = this.afs.doc(`state/${id}`).snapshotChanges()
+      state.subscribe((states: any) =>{
+      console.log(states.payload.data());
+      this.states = [...this.states,...states.payload.data().states]
+      })
+    })
+    console.log("America fuck yea!")
+  }
 
   selectImg(){
     let options: CameraOptions = {
@@ -104,7 +111,7 @@ export class StatesPage implements OnInit {
         type: false
       })
       await this.afs.doc(`state/${this.user.getUID()}`).set({
-        states: [...this.states]
+        states: [...this.myStates]
       })
       console.log('First send');
       
@@ -135,7 +142,7 @@ export class StatesPage implements OnInit {
       })
       
       await this.afs.doc(`state/${this.user.getUID()}`).set({
-        states: [...this.states]
+        states: [...this.myStates]
       })
       console.log("Sucess");
     }, (err) => {
@@ -152,4 +159,19 @@ export class StatesPage implements OnInit {
   }
 
 
+
+  change(){
+
+    var text = document.getElementsByTagName('textarea')[0];
+    text.style.minHeight = '0';
+    text.style.height = '0';
+    var scroll = text.scrollHeight;
+    if(scroll > 96){
+      scroll > 96
+    }
+    var area = document.getElementById('texta');
+    area.style.height = scroll + 'px';
+    text.style.minHeight = scroll + 'px';
+    text.style.height = scroll + 'px';
+  }
 }
