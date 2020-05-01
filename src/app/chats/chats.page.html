@@ -10,12 +10,10 @@
 <ion-content>
   <ion-item lines='no-lines' *ngFor="let item of msgs">
     <ion-item *ngIf="item.type == true; else pict">
-        <p>{{item.name}}: </p>
-        <p *ngIf="item.type==true">{{item.cont}}</p>
+        <p>{{item.name}}: <br/> {{item.cont}}</p>
     </ion-item>
     <ng-template #pict>
-      <p>{{item.name}}: </p>
-      <ion-img [src]='item.cont'></ion-img>
+      <p>{{item.name}}: <ion-img [src]='item.cont'></ion-img></p>
     </ng-template>
   </ion-item>
 

@@ -47,6 +47,20 @@
 ion-content{
 
     --background:  #FFFFFF;
+
+    ion-input{
+        color: white;
+    }
+
+    ion-textarea{
+        color: white;
+    }
+    p{
+        color: white;
+    }
+    ion-label{
+        color: white;
+    }
 }
 
 ion-icon{

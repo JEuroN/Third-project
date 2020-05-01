@@ -71,10 +71,13 @@
         <ion-input (click)='erase($event)' placeholder={{entry.cont}} [(ngModel)]="entry.cont"></ion-input>
       </ion-item>
    
-    <ion-item >
-      <ion-button id="updatebutton" style='margin: 0 auto;' (click)='edit()'>Update</ion-button>
-    </ion-item>
     
   </div>
 
 </ion-content>
+
+<ion-footer>
+  <ion-item >
+      <ion-button id="updatebutton" style='margin: 0 auto;' (click)='edit()'>Update</ion-button>
+    </ion-item>
+</ion-footer>

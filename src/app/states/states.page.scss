@@ -38,15 +38,20 @@ ion-item{
 ion-content{
     --background: #5285C6 ; // blue
 
-    ion-card{
-        background: #FFFFFF; //white
-        height: 60px;
+    ion-item{
         
         p{
             color: white;
-            font-size: 35px;
             margin: 0 auto;
+            display: inline-block;
+            padding: 0;
             text-align: center;
+            height: fit-content;
+            width: 350px;
+        }
+
+        ion-img{
+            margin: 0 auto;
         }
     }
 }

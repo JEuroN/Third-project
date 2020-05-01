@@ -24,12 +24,11 @@
   </ion-item>
   <ion-item lines='no-lines' *ngFor="let item of states">
     <ion-item *ngIf="item.type; else pict">
-        <p>{{item.name}}:</p>
-        <p>{{item.cont}}:</p>
+        <p>{{item.name}}: <br/> {{item.cont}}</p>
     </ion-item>
     <ng-template #pict>
-      <p>{{item.name}}:</p>
-      <ion-img [src]='item.cont'></ion-img>
+      <p>{{item.name}}: <ion-img [src]='item.cont'></ion-img></p>
+      
     </ng-template>
   </ion-item>
 

@@ -43,7 +43,15 @@ ion-toolbar{
 #gostates{
     --background: #5285C6; 
     p{
-        font-size: 25px;
-        
+        text-align: center;
+        margin: 0 auto;
+        color: white;
+        font-size: 20px;
     }
+    ion-icon{
+        margin: 0 auto;
+        color: white;
+        font-size: 20px;
+    }
+
 }

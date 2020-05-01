@@ -18,9 +18,9 @@
 }
 
 #input-one{
-    --background: #5285C6;
+    --background: white;
     --padding: 5;
-    --placeholder-color: white;
+    --placeholder-color: #5285C6 ;
 }
 #back-button{
     --background:  #001f3f;
@@ -37,6 +37,20 @@
 ion-content{
 
     --background:  #FFFFFF;
+
+    ion-input{
+        color: white;
+    }
+
+    ion-textarea{
+        color: white;
+    }
+    p{
+        color: white;
+    }
+    ion-label{
+        color: white;
+    }
 }
 
 ion-icon{
@@ -80,6 +94,9 @@ ion-title{
 #updatebutton{
     --background: #FFFFFF;
     color: #5285C6;
+    width: fit-content;
+    font-size: large;
+    height: fit-content;
 }
 
 #tool{
@@ -112,6 +129,14 @@ ion-toolbar{
 }
 
 ion-header{
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+}
+
+ion-footer{
     position: sticky;
     top: 0;
     left: 0;

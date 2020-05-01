@@ -1,5 +1,18 @@
 ion-content{
     --background:  #5285C6;
+    p{
+        color: white;
+        margin: 0 auto;
+        display: inline-block;
+        padding: 0;
+        text-align: center;
+        height: fit-content;
+        width: 350px;
+    }
+
+    ion-img{
+        margin: 0 auto;
+    }
 }
 
 ion-item{
@@ -31,6 +44,9 @@ ion-footer{
     p{
         margin-left: 10px;
     }
+    ion-textarea{
+        color: white;
+    }
 }
 
 ion-header{
@@ -44,5 +60,8 @@ ion-header{
     ion-icon{
         color: white;
         font-size: 40px;
+    }
+    p{
+        color: white;
     }
 }   
