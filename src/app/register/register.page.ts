@@ -49,9 +49,10 @@ export class RegisterPage implements OnInit {
     }else if(this.password === this.cpassword){try{
       const res = await this.afauth.auth.createUserWithEmailAndPassword(this.username, this.password);
       const gay = this.rugay();
-      this.geo.getCurrentPosition().then((res)=>{
+      await this.geo.getCurrentPosition().then((res)=>{;
         this.latitud = res.coords.latitude;
-        this.longitud = res.coords.longitude;
+        this.longitud = Math.floor(res.coords.longitude);
+        console.log(res.coords, this.longitud, this.latitud)
       }).catch((err)=>{
         console.log(err);
       }) 
@@ -64,9 +65,9 @@ export class RegisterPage implements OnInit {
         like1: 'Please write something you like',
         like2: 'Please write something you like',
         like3: 'Please write something you like',
-        hate1: 'Please write something you dislike',
-        hate2: 'Please write something you dislike',
-        hate3: 'Please write something you dislike',
+        dislike1: 'Please write something you dislike',
+        dislike2: 'Please write something you dislike',
+        dislike3: 'Please write something you dislike',
         img: null,
         coord: {lon: this.longitud, lat: this.latitud}
       })

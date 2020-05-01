@@ -55,6 +55,7 @@ export class ProfilePage implements OnInit {
     const data = this.afs.collection('users').doc(this.users.getUID()).snapshotChanges();
     data.subscribe((deta: any) =>{
       let nDeta = deta.payload.data();
+      console.log(deta.payload.data().coord.lat, nDeta.coord);
       this.name = nDeta.name;
       this.age = nDeta.age;
       this.sex = nDeta.sex ? ('Masculino') : ('Femenino');
@@ -68,6 +69,7 @@ export class ProfilePage implements OnInit {
       if(nDeta.coord == undefined){
         console.log('No coord')
       }else{
+        console.log(nDeta.coord.lat)
           this.latitud = nDeta.coord.lat;
           this.longitud = nDeta.coord.lon;
       }
@@ -244,11 +246,12 @@ export class ProfilePage implements OnInit {
   }
 
   locale(){
-    this.geo.getCurrentPosition().then((res) =>{
+    let Geo = this.geo.getCurrentPosition()
+    Geo.then((res) =>{
       this.latitud = res.coords.latitude
       this.longitud = res.coords.longitude
 
-      this.afs.doc(`user/${this.users.getUID()}`).set({
+      this.afs.doc(`users/${this.users.getUID()}`).set({
           name: this.name,
           age: this.age,
           sex: this.sex,
@@ -262,7 +265,10 @@ export class ProfilePage implements OnInit {
           img: this.img,
           coord: {lat: this.latitud, lon: this.longitud}
       })
+
+      console.log("Coord success!");
     }).catch((error)=>{
+      console.log(error);
       this.showAlert("Error!", 'There was a problem')
     })
   }

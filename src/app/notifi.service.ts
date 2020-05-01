@@ -28,8 +28,8 @@ export class NotifiService {
   getData(){
 
     this.afs.doc(`users/${this.user.getUID()}`).snapshotChanges().subscribe((coord: any)=>{
-      this.latitud = coord.coord.lat;
-      this.longitud = coord.coord.lon;
+      this.latitud = coord.payload.data().coord.lat;
+      this.longitud = coord.payload.data().coord.lon;
     })
 
 
@@ -64,7 +64,7 @@ export class NotifiService {
     console.log('Crossed')
   }
 
- async updateHeart(id: string, cName: string){
+ async updateHeart(id: string, oName: string){
     console.log(id, 'hearted', this.user.getUID())
     await this.afs.doc(`match/${this.user.getUID()}`).set({
       cross: [...this.cross],
@@ -87,7 +87,7 @@ export class NotifiService {
       let newChat: string = sortArray;
       console.log(newChat);
 
-      await this.setNewChats(this.user.getUID(), id, oldChats, cName);
+      await this.setNewChats(this.user.getUID(), id, oldChats, oName);
       await this.setNewChats(id, this.user.getUID(), otherChats, this.user.getUser());
      
       console.log('We did it')
@@ -95,7 +95,7 @@ export class NotifiService {
         msg:[]
       })
         
-        this.router.navigate(['/chats', {cId: id, name: cName }]);
+        this.router.navigate(['/chats', {cId: id, cName: oName }]);
       }
     
     })
@@ -118,9 +118,10 @@ export class NotifiService {
         const men = menCards.get();
         men.subscribe( (menData: any) => {
           menData.docs.forEach(male => {
+            console.log(male.data())
             let aux = male.data();
             let img = null;
-
+            console.log(aux);
             //Si el usuario no tiene foto se le coloca una por defecto
             if(aux.img == undefined){
               img = 'assets/img/default-profile-picture1.jpg'
@@ -130,8 +131,10 @@ export class NotifiService {
 
             let distance = this.getDistanceFromLatLonInKm(this.latitud, this.longitud, aux.coord.lat, aux.coord.lon);
             //Asi el usuario no se puede dar like o dislike a uno mismo, y no puede encontrarse con el mismo match dos veces
+
+            console.log(this.cross.includes(male.id), this.heart.includes(male.id), distance <= this.config.range)
             if(male.id != this.user.getUID()){
-              if(this.cross.includes(male.id) == false || this.heart.includes(male.id) == false || distance > this.config.range){
+              if(this.cross.includes(male.id) == false && this.heart.includes(male.id) == false && distance <= this.config.range){
                 this.cards.push({
                   id: male.id,
                   age: aux.age,
@@ -162,7 +165,7 @@ export class NotifiService {
 
             let distance = this.getDistanceFromLatLonInKm(this.latitud, this.longitud, fData.coord.lat, fData.coord.lon);
             if(female.id != this.user.getUID()){
-              if(this.cross.includes(female.id) == false || this.heart.includes(female.id) == false || distance > this.config.range){
+              if(this.cross.includes(female.id) == false && this.heart.includes(female.id) == false && distance <= this.config.range){
               this.cards.push({
                 id: female.id,
                 age: fData.age,
