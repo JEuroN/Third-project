@@ -31,6 +31,7 @@ export class StatesPage implements OnInit {
   ngOnInit() {
   }
 
+  //El busca a aquienes le has dado like, por cada uno el revisa en la db si tienen estados, si tienen te parecen
   async ionViewWillEnter(){ 
     this.states = [];
     let check = this.not.getData();

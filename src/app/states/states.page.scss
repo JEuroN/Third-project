@@ -39,7 +39,9 @@ ion-content{
     --background: #5285C6 ; // blue
 
     ion-item{
-        
+        ion-icon{
+            color: white;
+        }
         p{
             color: white;
             margin: 0 auto;

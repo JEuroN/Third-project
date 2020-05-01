@@ -20,6 +20,8 @@ import { FormServiceService } from './form-service.service';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx'
 import { Camera } from '@ionic-native/camera/ngx'
 import { NotifiService } from './notifi.service';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
 
 @NgModule({
   declarations: [AppComponent
@@ -40,7 +42,8 @@ import { NotifiService } from './notifi.service';
     usersService,
     NotifiService,
     Camera,
-    LocalNotifications
+    LocalNotifications,
+    Geolocation
   ],
   bootstrap: [AppComponent]
 })

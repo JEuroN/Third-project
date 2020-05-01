@@ -7,6 +7,7 @@ import { Camera,CameraOptions } from '@ionic-native/camera/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx'
 import { NotifiService } from '../notifi.service';
 import { LoadingController } from '@ionic/angular';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 
 
@@ -33,6 +34,8 @@ export class ProfilePage implements OnInit {
       {cont: ''},
       {cont: ''}
     ]
+    latitud: number = null;
+    longitud: number = null;
 
     value: boolean = true;
 
@@ -44,7 +47,8 @@ export class ProfilePage implements OnInit {
     public notif: LocalNotifications,
     public camera: Camera,
     public not: NotifiService,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public geo: Geolocation
     ) { }
 
   ngOnInit() {
@@ -61,6 +65,12 @@ export class ProfilePage implements OnInit {
       this.dislike[0].cont = nDeta.dislike1;
       this.dislike[1].cont = nDeta.dislike2;
       this.dislike[2].cont = nDeta.dislike3;
+      if(nDeta.coord == undefined){
+        console.log('No coord')
+      }else{
+          this.latitud = nDeta.coord.lat;
+          this.longitud = nDeta.coord.lon;
+      }
       if(nDeta.img != undefined || nDeta.img != null){
         this.img = nDeta.img;
       }else{
@@ -125,7 +135,8 @@ export class ProfilePage implements OnInit {
         dislike1: this.dislike[0].cont,
         dislike2: this.dislike[1].cont,
         dislike3: this.dislike[2].cont,
-        img: this.img
+        img: this.img,
+        coord: {lat: this.latitud, lon: this.longitud}
       }
   
       await this.afs.collection('users').doc(this.users.getUID()).set(newData);
@@ -171,7 +182,8 @@ export class ProfilePage implements OnInit {
         dislike1: this.dislike[0].cont,
         dislike2: this.dislike[1].cont,
         dislike3: this.dislike[2].cont,
-        img: this.img
+        img: this.img,
+        coord: {lat: this.latitud, lon: this.longitud}
       });
       console.log("Sucess");
     }, (err) => {
@@ -206,7 +218,8 @@ export class ProfilePage implements OnInit {
           dislike1: this.dislike[0].cont,
           dislike2: this.dislike[1].cont,
           dislike3: this.dislike[2].cont,
-          img: this.img
+          img: this.img,
+          coord: {lat: this.latitud, lon: this.longitud}
       });
       console.log("Sucess");
     }, (err) => {
@@ -230,6 +243,29 @@ export class ProfilePage implements OnInit {
     await loading.present();
   }
 
+  locale(){
+    this.geo.getCurrentPosition().then((res) =>{
+      this.latitud = res.coords.latitude
+      this.longitud = res.coords.longitude
+
+      this.afs.doc(`user/${this.users.getUID()}`).set({
+          name: this.name,
+          age: this.age,
+          sex: this.sex,
+          description: this.description,
+          like1: this.like[0].cont,
+          like2: this.like[1].cont,
+          like3: this.like[2].cont,
+          dislike1: this.dislike[0].cont,
+          dislike2: this.dislike[1].cont,
+          dislike3: this.dislike[2].cont,
+          img: this.img,
+          coord: {lat: this.latitud, lon: this.longitud}
+      })
+    }).catch((error)=>{
+      this.showAlert("Error!", 'There was a problem')
+    })
+  }
 
 }
 

@@ -14,6 +14,8 @@ export class NotifiService {
   cross = [];
   heart = [];
   getHearts;
+  latitud: number;
+  longitud: number;
 
   
 
@@ -24,13 +26,19 @@ export class NotifiService {
 
     //GetData() hace dos peticiones a la base de datos, la primera para obtener antiguos match del usuario, y la segunda para cargar los parametros que el usuario selecciono 
   getData(){
+
+    this.afs.doc(`users/${this.user.getUID()}`).snapshotChanges().subscribe((coord: any)=>{
+      this.latitud = coord.coord.lat;
+      this.longitud = coord.coord.lon;
+    })
+
+
     this.cross = [];
     this.heart = [];
     let matches = this.afs.doc(`match/${this.user.getUID()}`).snapshotChanges();
     matches.subscribe((m: any) => {
       this.cross = m.payload.data().cross;
       this.heart = m.payload.data().heart;
-      
     })
     
     this.config = [];
@@ -63,6 +71,10 @@ export class NotifiService {
       heart: [...this.heart, id]
     })
     console.log("Saved")
+
+
+    //El revisa si tu estas en los likes del otro usuario, si estas, crea una sala en ambas colecciones de firebase
+    //Para crear una sala unica agarra los 5 caracteres de ambos ids y los ordena con .sort, despues te redirecciona
     this.getHearts = this.afs.collection('match').doc(id).valueChanges();
     this.getHearts.subscribe(async (hData: any) =>{
       if(hData != undefined && hData.heart.includes(this.user.getUID())){
@@ -115,14 +127,16 @@ export class NotifiService {
             }else{
               img = aux.img;
             }
+
+            let distance = this.getDistanceFromLatLonInKm(this.latitud, this.longitud, aux.coord.lat, aux.coord.lon);
             //Asi el usuario no se puede dar like o dislike a uno mismo, y no puede encontrarse con el mismo match dos veces
             if(male.id != this.user.getUID()){
-              if(this.cross.includes(male.id) == false || this.heart.includes(male.id) == false){
+              if(this.cross.includes(male.id) == false || this.heart.includes(male.id) == false || distance > this.config.range){
                 this.cards.push({
                   id: male.id,
                   age: aux.age,
                   name: aux.name,
-                  des: aux.description,
+                  des: distance,
                   img: img
                 })
               }
@@ -145,13 +159,15 @@ export class NotifiService {
             }else{
               fimg = fData.img;
             }
+
+            let distance = this.getDistanceFromLatLonInKm(this.latitud, this.longitud, fData.coord.lat, fData.coord.lon);
             if(female.id != this.user.getUID()){
-              if(this.cross.includes(female.id) == false || this.heart.includes(female.id) == false){
+              if(this.cross.includes(female.id) == false || this.heart.includes(female.id) == false || distance > this.config.range){
               this.cards.push({
                 id: female.id,
                 age: fData.age,
                 name: fData.name,
-                des: fData.description,
+                des: distance,
                 img: fimg
               })
             }
@@ -188,6 +204,25 @@ export class NotifiService {
           name: cName}]
         })
       )
+    }
+
+
+    getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+      var R = 6371; // Radius of the earth in km
+      var dLat = this.deg2rad(lat2-lat1);  // deg2rad below
+      var dLon = this.deg2rad(lon2-lon1); 
+      var a = 
+        Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
+        Math.sin(dLon/2) * Math.sin(dLon/2)
+        ; 
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+      var d = R * c; // Distance in km
+      return d;
+    }
+    
+    deg2rad(deg) {
+      return deg * (Math.PI/180)
     }
 
 }

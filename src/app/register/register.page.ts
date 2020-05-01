@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore'
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +18,8 @@ export class RegisterPage implements OnInit {
   cpassword: string = '';
   age: number;
   error: string = 'Ingrese sus datos';
+  latitud: number;
+  longitud: number;
 
   public form = [
     {val: 'Men', isChecked: false, id: 0},
@@ -26,7 +29,8 @@ export class RegisterPage implements OnInit {
     public afauth: AngularFireAuth,
     public alert: AlertController,
     public router: Router,
-    public afstore: AngularFirestore
+    public afstore: AngularFirestore,
+    public geo: Geolocation
   ) { }
 
   ngOnInit() {}
@@ -44,7 +48,13 @@ export class RegisterPage implements OnInit {
       this.showAlert('Error','Please use a valid age');
     }else if(this.password === this.cpassword){try{
       const res = await this.afauth.auth.createUserWithEmailAndPassword(this.username, this.password);
-      const gay = this.rugay();   
+      const gay = this.rugay();
+      this.geo.getCurrentPosition().then((res)=>{
+        this.latitud = res.coords.latitude;
+        this.longitud = res.coords.longitude;
+      }).catch((err)=>{
+        console.log(err);
+      }) 
       this.afstore.doc(`users/${res.user.uid}`).set({
         name: this.username,
         age: this.age,
@@ -57,7 +67,8 @@ export class RegisterPage implements OnInit {
         hate1: 'Please write something you dislike',
         hate2: 'Please write something you dislike',
         hate3: 'Please write something you dislike',
-        img: null
+        img: null,
+        coord: {lon: this.longitud, lat: this.latitud}
       })
       this.afstore.doc(`follow/${res.user.uid}`).set({
         follows: []

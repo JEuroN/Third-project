@@ -48,7 +48,7 @@ export class ChatsPage implements OnInit {
   sort(text) {
     return text.split('').sort().join('');
   };
-
+  //Consigue los mensajes de la db usando el ordenamiento de los caracteres de los id
   async getMsgs(params){
     console.log(params);
     let sortArray = params.cId + this.user.getUID();
@@ -84,6 +84,7 @@ export class ChatsPage implements OnInit {
     text.style.height = scroll + 'px';
   }
 
+  //Solamente guarda en el array y envia al array a la db
   async send(){
     if(this.sendMsg == '' || this.sendMsg == null)
     return null

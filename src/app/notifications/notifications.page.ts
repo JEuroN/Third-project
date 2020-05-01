@@ -21,6 +21,8 @@ export class NotificationsPage implements OnInit {
   checker:number = 1;
   mAge: number = 18;
   mxAge: number = 60;
+  distance: number = 0;
+
   constructor(
     public users: usersService,
     public afs: AngularFirestore,
@@ -56,12 +58,15 @@ export class NotificationsPage implements OnInit {
 
 
   setMin(e){
-    console.log(e.target.value);
     this.mAge = e.target.value
   }
 
   setMax(e){
     this.mxAge = e.target.value;
+  }
+
+  setDist(e){
+    this.distance = e.target.value;
   }
 
   setParam(){
@@ -80,7 +85,8 @@ export class NotificationsPage implements OnInit {
         men: this.form[0].isChecked,
         women: this.form[1].isChecked,
         mAge: this.mAge,
-        mxAge: this.mxAge
+        mxAge: this.mxAge,
+        range: this.distance
       });
       console.log("Sucess");
       setTimeout(()=>{

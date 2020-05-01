@@ -37,6 +37,13 @@
     <ion-range min='{{mAge}}' max='60' value='{{mxAge}}' color='dark' (ionChange)='setMax($event)'></ion-range>
     <p>{{mxAge}}</p>
   </ion-item>
+
+  <ion-item  lines='none'>
+    <p>Set max distance</p>
+    <ion-range min='0' max='150' value='{{distance}}' color='dark' (ionChange)='setDist($event)'></ion-range>
+    <p>{{distance}}</p>
+  </ion-item>
+
   <ion-item lines='none'>
     <ion-button id='ion-but' (click)='setParam()'>
       Save parameters
